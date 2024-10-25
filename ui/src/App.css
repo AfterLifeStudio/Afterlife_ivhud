@@ -1,0 +1,564 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  --maincolor: #88cfcd;
+  --width: 13vw;
+  --height: 13vw;
+  transition: 0.2s ease;
+  user-select: none;
+}
+
+body {
+  background-color: #777777;
+  height: 100%;
+}
+
+
+
+.Minimap {
+  transform: scale(1.0);
+  position: absolute;
+  bottom: 1vw;
+}
+
+.minimap-dead {
+  position: absolute;
+  width: var(--width);
+  height: var(--height);
+  left: 0;
+  z-index: -2;
+}
+
+
+.outline {
+  width: var(--width);
+  height: var(--height);
+}
+
+.status-outline {
+  position: absolute;
+  width: var(--width);
+  height: var(--height);
+  left: 0;
+}
+
+
+.health {
+  position: absolute;
+  left: 0;
+  width: var(--width);
+  height: auto;
+  top: 1.03vw;
+}
+
+.armour {
+  position: absolute;
+  right: 0;
+  width: var(--width);
+  height: auto;
+  top: 1.03vw;
+}
+
+
+.hunger {
+  position: absolute;
+  left: 0;
+  width: var(--width);
+  height: auto;
+  bottom: 2.7vw;
+}
+
+
+.thirst {
+  position: absolute;
+  left: 0;
+  width: var(--width);
+  height: auto;
+  top: 2.5vw;
+}
+
+.stress {
+  position: absolute;
+  right: 0;
+  width: var(--width);
+  height: auto;
+  top: 2.5vw;
+
+}
+
+.oxygen {
+  position: absolute;
+  right: 0;
+  width: var(--width);
+  height: auto;
+  bottom: 2.7vw;
+}
+
+
+
+
+
+
+.icon-stress {
+  position: absolute;
+  color: #e07569;
+  top: 1.4vw;
+  right: 2.1vw;
+}
+
+
+.icon-thirst {
+  position: absolute;
+  color: var(--maincolor);
+  top: 1.3vw;
+  left: 2.1vw;
+}
+
+.icon-hunger {
+  position: absolute;
+  color: #dec56f;
+  bottom: 1.7vw;
+  left: 2.1vw;
+}
+
+
+
+.icon-oxygen {
+  position: absolute;
+  color: #bbbbbb;
+  width: .8vw;
+  bottom: 1.7vw;
+  right: 2.1vw;
+}
+
+
+
+.fa-microphone {
+  position: absolute;
+  right: -.7vw;
+  bottom: -.3vw;
+  color: rgb(229, 229, 229);
+  width: .7vw;
+  height: auto;
+  padding: .65vw .82vw;
+  text-shadow: 0 0 10px black;
+  border-radius: 100%;
+}
+
+
+
+.circle {
+  display: none;
+  height: .4vw;
+  width: .4vw;
+  border-radius: 50%;
+  position: absolute;
+  right: .34vw;
+  bottom: .7vw;
+}
+
+.circle:before,
+.circle:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 0.5vh solid var(--voiceval);
+  border-radius: 50%;
+}
+
+
+.circle:before {
+  animation: ripple 2s linear infinite;
+}
+
+.circle:after {
+  animation: ripple 2s linear 1s infinite;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(3);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(6);
+    opacity: 0;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.speedometer {
+  position: absolute;
+  bottom: 1.2vw;
+  transform-origin: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.gear-container {
+  position: absolute;
+  width: 13vw;
+  height: 13vw;
+  color: rgb(255, 255, 255);
+  font-family: 'Oswald', sans-serif;
+  font-size: .85vw;
+
+}
+
+.gear0 {
+  position: relative;
+  left: 2.5vw;
+  bottom: 4vw;
+  text-shadow: 0 0 5px black;
+}
+
+
+.gear1 {
+  position: relative;
+  left: 1vw;
+  bottom: 5.5vw;
+  text-shadow: 0 0 5px black;
+}
+
+.gear2 {
+  position: relative;
+  bottom: 7vw;
+  left: 2.5vw;
+  text-shadow: 0 0 5px black;
+}
+
+.gear3 {
+  position: relative;
+  bottom: 6.5vw;
+  text-shadow: 0 0 5px black;
+  left: 6.2vw;
+}
+
+.gear4 {
+  position: relative;
+  bottom: 3vw;
+  left: 10vw;
+  text-shadow: 0 0 5px black;
+}
+
+.gear5 {
+  position: relative;
+  left: 11.7vw;
+  top: 2.5vw;
+  text-shadow: 0 0 5px black;
+}
+
+.gear6 {
+  position: relative;
+  left: 10.5vw;
+  top: 8.2vw;
+  text-shadow: 0 0 5px black;
+}
+
+
+.speedometer-center {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.speed-outline{
+  position: absolute;
+  width: 15vw;
+
+}
+
+
+.speed {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 3vw;
+  color: white;
+  text-shadow: 0 0 10px black;
+  width: 4.95vw;
+
+}
+
+.speed-unit {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.0vw;
+  font-weight: bold;
+  color: rgba(255, 255, 255, .8);
+  text-shadow: 0 0 5px black;
+
+}
+
+
+
+.fa-gas-pump {
+  position: absolute;
+  background-color: rgb(49, 49, 49);
+  border-radius: 100%;
+  padding: 0.2vw;
+  top: 6vw;
+  right: -1vw;
+}
+
+
+.fa-car {
+  position: absolute;
+  top: 6.2vw;
+  left: -1vw;
+  background-color: rgb(49, 49, 49);
+  border-radius: 100%;
+  padding: 0.2vw;
+  z-index: 10;
+}
+
+.seatbelt {
+  position: relative;
+  top: 0.5vw;
+  width: 1.0vw !important;
+  text-shadow: 0 0 5px black;
+  animation-name: alarm;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+
+.mileage-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.1vw;
+  background-color: rgba(0, 0, 0, 0.568);
+  padding: 0vw 0.2vw;
+  align-items: center;
+  border-radius: .5vw;
+  width: 5.1vw;
+  justify-content: center;
+}
+
+.mileage-container span {
+  position: relative;
+  top: 0.05vw;
+  font-family: 'Rajdhani', sans-serif;
+  color: white;
+  opacity: 50%;
+  font-size: 1.0vw;
+  font-weight: bold;
+}
+
+
+.speedo-back {
+  fill: #0f0f0fb9 !important;
+}
+
+.box {
+  position: absolute;
+  right: 0.09vw;
+  bottom: 0vw;
+  transform: rotate(130deg);
+}
+
+
+
+
+.enginevalue {
+  position: absolute;
+  stroke-dashoffset: 270%;
+  stroke-dasharray: 300%;
+}
+
+.enginehealth {
+  position: absolute;
+  bottom: -1.8vw;
+  left: -1.7vw;
+  transform: rotate(129deg);
+}
+
+.engine {
+  position: absolute;
+  stroke-dashoffset: 250%;
+  stroke-dasharray: 300%;
+}
+
+svg circle.circlea {
+  position: absolute;
+  stroke-dashoffset: 80%;
+  stroke-dasharray: 300%;
+  stroke-linecap: round;
+}
+
+svg circle.outline {
+  stroke-dashoffset: 80%;
+  stroke-dasharray: 300%;
+  stroke-linecap: round;
+}
+
+
+
+.speed-fuel {
+position: absolute;
+  width: 15vw;
+  height: auto;
+}
+
+.speed-engine {
+  position: absolute;
+  width: 15vw;
+  height: auto;
+}
+
+
+.fas {
+  width: .7vw;
+  height: auto;
+}
+
+@keyframes alarm {
+  0% {
+      opacity: 1;
+  }
+
+  50% {
+      opacity: 0;
+  }
+
+  100%{
+      opacity: 1;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+.compass-container{
+  position: absolute;
+  left: 50%;
+  top: 2vw;
+
+  transform: translate(-50%,0%);
+
+
+
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+
+}
+
+.compass{
+  display: flex;
+  flex-direction: row;
+  width: 500px;
+  height: 3vw;
+  gap: 30px;
+  overflow-x: scroll;
+  --mask: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 20%,  rgba(0,0,0, 1) 50%, rgb(0, 0, 0) 80%,rgba(0,0,0, 0) 100%) 100% 50% / 100% 100% repeat-x;
+
+-webkit-mask: var(--mask); 
+mask: var(--mask);
+
+}
+
+.compassvalues{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.compassdir{
+  font-family: 'Rajdhani', sans-serif;
+  color: rgba(219, 225, 231, 0.947);
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.compasstext{
+  font-family: 'Rajdhani', sans-serif;
+  color: rgba(187, 204, 220, 0.8);
+  font-size: 15px;
+}
+.compassbar{
+  width: 2px;
+  height: 7px;
+  background-color: rgba(187, 204, 220, 0.8);
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+
+.location-container{
+  display: flex;
+  flex-direction: row;
+  gap: 5px; 
+  font-family: 'Rajdhani', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.location-bar{
+  width: 3px;
+  height: 20px;
+  background-color: white;
+}
+
+.location1{
+  font-size: 15px;
+  color: white;
+}
+
+
+.location2{
+  font-size: 15px;
+  color: var(--maincolor);
+}
+
