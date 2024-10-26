@@ -1,27 +1,32 @@
 fx_version 'cerulean'
 game 'gta5'
 lua54 'yes'
-name 'Afterlife_hud'
-author 'AfterLifeStudio'
-version 'BETA'
-repository 'https://github.com/AfterLifeStudio/Afterlife-Hud'
-description 'Simple yet a complex hud resource'
-
-dependencies {
-    'ox_lib',
-}
-
 
 client_scripts {
-    'shared.lua',
     'util/client.lua',
-    'data/*.lua',
-    'framework/*.lua',
+    'framework/client/*.lua',
     'modules/*.lua',
+    'editable.lua',
+    'client.lua',
     '@qbx_core/modules/playerdata.lua'
 }
 
-shared_script '@ox_lib/init.lua'
+server_scripts {
+    'framework/server/*.lua',
+}
+
+shared_scripts {
+    '@ox_lib/init.lua',
+    'shared.lua'
+}
+
+escrow_ignore {
+    'editable.lua',
+    'shared.lua',
+    'modules/stress.lua',
+    'framework/client/*.lua',
+    'framework/server/*.lua',
+}
 
 ui_page 'ui/dist/index.html'
 
@@ -30,5 +35,9 @@ files {
 	'ui/dist/assets/*.js',
     'ui/dist/assets/*.css',
     'ui/dist/assets/*.png'
+}
+
+exports {
+    'ShowHud'
 }
 

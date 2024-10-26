@@ -1,0 +1,61 @@
+previouscash, previousbank = 0,0
+
+cash, bank = 0, 0
+local previousjob
+job = ''
+grade = ''
+playerjob = nil
+
+CreateThread(function()
+    while true do
+        if playerloaded then
+            local bankstate,cashstate,jobstate = false,false,false
+            local bankincrement,cashincrement = 0,0
+            local banks,cashs
+            local jobs = string.upper(job) .. ' - ' .. string.upper(grade)
+                if not (previousbank == bank) then
+                    bankstate = true
+                    if previousbank < bank then
+                        bankincrement = bank - previousbank
+                        banks = '+'
+                    else
+                        banks = '-'
+                        bankincrement = previousbank - bank
+                    end
+                end
+                if not (previouscash == cash) then
+                    cashstate = true
+                    if previouscash < cash then
+                        cashs = '+'
+                        cashincrement = cash - previouscash
+                    else
+                        cashs = '-'
+                        cashincrement = previouscash - cash
+                    end
+                end
+
+                if not (previousjob == jobs) then
+                    jobstate = true
+                    previousjob = jobs
+                end
+
+            previouscash = cash
+            previousbank = bank
+            SendNUIMessage({
+                type = 'updateinfo',
+                bank = bank,
+                cash = cash,
+                job = jobs,
+                bankincrement = bankincrement,
+                cashincrement = cashincrement,
+                banks = banks,
+                cashs = cashs,
+                bankstate = bankstate,
+                cashstate = cashstate,
+                jobstate = jobstate,
+                dynamic = globalsettings.dynamicinfo
+            })
+        end
+        Wait(1200)
+    end
+end)

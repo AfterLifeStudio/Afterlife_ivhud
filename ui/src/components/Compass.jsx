@@ -1,26 +1,40 @@
 import { useState, useEffect } from "react";
-
+import { NuiEvent } from "../hooks/NuiEvent";
 
 
 const Compass = () => {
-  const [status, setStatus] = useState({
+  const [compass, setCompass] = useState({
     show: true,
     heading: 0,
+    location1: 'Los Santos',
+    location2: 'Legion Square'
   });
 
 
 useEffect(() => {
   const element = document.getElementById("compass");
-  let scroll = -((element.scrollWidth / (-360)) * status.heading)
+  
+  let scroll = -((2133 / (-360)) * compass.heading)
   element.scrollLeft = scroll;
 })
 
+const handlecompass = (data) => {
+  setCompass(data);
+};
 
+const handlescroll = () => {
+  // const element = document.getElementById("compass");
+  
+  // let scroll = -((2133 / (-360)) * compass.heading)
+  // console.log(element.scrollLeft,scroll)
+}
+
+NuiEvent("compass", handlecompass);
 
   return (
     <>
   <div className="compass-container">
-    <div  id="compass" className="compass">
+    <div onScroll={handlescroll} id="compass" className="compass">
 
       <div className="compassvalues">
       <div className="compassbar"></div>
@@ -286,9 +300,9 @@ useEffect(() => {
     </div>
 
     <div className="location-container">
-      <div className="location1">Los Santos</div>
+      <div className="location1">{compass.location1}</div>
       <div className="location-bar"></div>
-      <div className="location2">Legion Square</div>
+      <div className="location2">{compass.location2}</div>
     </div>
   </div>
 

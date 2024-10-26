@@ -22,9 +22,10 @@ const Hud = () => {
 
   return (
     <>
-    <Speedometer/>
+    {/* <Speedometer/>
     <Minimap />
-    <Compass/>
+    <Compass/> */}
+    <Settings/>
     </>
   );
 };

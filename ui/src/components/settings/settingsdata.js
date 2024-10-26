@@ -1,0 +1,141 @@
+export const Config = {
+    settings: [
+        {
+            name: 'showhud',
+            label: "Toggle Hud",
+            description: "Randoma",
+            show: true,
+            value: true,
+            type: 'button',
+            category: 'general'
+        },
+        {
+            name: 'cinematicmode',
+            label: 'Cinemtic Mode',
+            description: "Random",
+            show: true,
+            value: false,
+            type: 'button',
+            category: 'general'
+        },
+        {
+            name: 'fliphud',
+            label: 'Flip Hud',
+            description: "Random",
+            show: true,
+            value: false,
+            type: 'button',
+            category: 'general'
+        },
+        {
+            name: 'showminimap',
+            label: 'Toggle Minimap',
+            description: "Random",
+            show: true,
+            value: true,
+            type: 'button',
+            category: 'minimap'
+        },
+        {
+            name: 'skullonfoot',
+            label: 'Skull on foot',
+            description: "Random",
+            show: true,
+            value: false,
+            type: 'button',
+            category: 'minimap'
+        },
+        {
+            name: 'minimapsize',
+            label: 'Minimap Size',
+            description: "Random",
+            show: true,
+            value: 10,
+            type: 'slider',
+            category: 'minimap'
+        },
+        {
+            name: 'showspeedometer',
+            label: 'Toggle Speedometer',
+            description: "Random",
+            show: true,
+            value: true,
+            type: 'button',
+            category: 'speedometer'
+        },
+        {
+            name: 'speedometersize',
+            label: 'Speedometer Scale',
+            description: "Random",
+            show: true,
+            value: 10,
+            type: 'slider',
+            category: 'speedometer'
+        },
+        {
+            name: 'mphkmh',
+            label: 'Vehicle Speed Unit',
+            description: "Random",
+            show: true,
+            value: true,
+            option1: 'KMH',
+            option2: 'MPH',
+            type: 'select',
+            category: 'speedometer'
+        },
+        {
+            name: 'compassize',
+            label: 'Compass Scale',
+            description: "Random",
+            show: true,
+            value: 10,
+            type: 'slider',
+            category: 'speedometer'
+        },
+        {
+            name: 'showcompass',
+            label: 'Toggle Compass',
+            description: "Random",
+            show: true,
+            value: true,
+            type: 'button',
+            category: 'speedometer'
+        },
+        {
+            name: 'showstreet',
+            label: 'Toggle Street Names',
+            description: "Random",
+            show: true,
+            value: true,
+            type: 'button',
+            category: 'speedometer'
+        },
+        {
+            name: 'seatbeltalarm',
+            label: 'Toggle Seatbelt Alarm',
+            description: "Random",
+            show: true,
+            value: true,
+            type: 'button',
+            category: 'speedometer'
+        },
+        {
+            name: 'showinfo',
+            label: 'Toggle Info',
+            description: "Random",
+            show: true,
+            value: true,
+            type: 'button',
+            category: 'info'
+        },
+        {
+            name: 'dynamicinfo',
+            label: 'Dynamic Info',
+            description: "Random",
+            show: true,
+            value: true,
+            type: 'button',
+            category: 'info'
+        }
+    ]
+};

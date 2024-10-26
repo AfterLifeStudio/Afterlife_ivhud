@@ -29,7 +29,6 @@ const Speedometer = () => {
 
   const handlespeedometer = (data) => {
     setVehicle(data);
-    sound();
   };
 
   NuiEvent("speedometer", handlespeedometer);

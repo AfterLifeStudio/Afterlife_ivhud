@@ -43,7 +43,7 @@ const Minimap = () => {
   return (
     <>
     <Fade in={settings.showminimap}></Fade>
-      <div style={settings.fliphud ? {left: '2vw'} : {right: '2vw'}} className="Minimap">
+      <div style={settings.fliphud ? {left: '1.2vw'} : {right: '1.2vw'}} className="Minimap">
         <img className="outline" src={outline} alt="" />
         <Fade in={settings.skullonfoot ? status.skull : false}>
           <img className="minimap-dead" src={minimapdead} alt="" />

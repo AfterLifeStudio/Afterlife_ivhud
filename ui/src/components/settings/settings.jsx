@@ -1,105 +1,109 @@
 import { React, useEffect, useState } from "react";
 import Fade from "../../utils/fade";
-import settingsicon from "../../Assets/settings.png";
-import Option from "./option";
+import settingsicon from "../../assets/images/settings.png";
+import Select from "./select";
+import Button from "./button";
+import Sliders from "./slider";
 import { NuiEvent } from "../../hooks/NuiEvent";
 import { nuicallback } from "../../utils/nuicallback";
-
+import { Config } from "./settingsdata";
 const Settings = () => {
-  const { classes } = styles();
-  const [visible, setVisible] = useState(false)
+  const [settings, setSettings] = useState({
+    catagory: "general",
+  });
 
-
+  const [catagorystate, setCatagory] = useState("general");
+  const [visible, setVisible] = useState(true);
+  const [description, setDescription] = useState("")
   const handlesettings = (data) => {
     setSettings(data);
-    setVisible(true)
+    setVisible(true);
   };
 
   NuiEvent("settings", handlesettings);
 
-  useEffect(() => {
+  const handlehover = (value) => {
+    setDescription(value)
+  }
 
+  useEffect(() => {
     const handlekey = (e) => {
-      if (visible && e.code == 'Escape') {
-        setVisible(false)
-        nuicallback("exitsettings")
+      if (visible && e.code == "Escape") {
+        setVisible(false);
+        nuicallback("exitsettings");
       }
     };
 
-    window.addEventListener('keydown',handlekey);
-    return () => window.removeEventListener('keydown',handlekey);
-  })
+    window.addEventListener("keydown", handlekey);
+    return () => window.removeEventListener("keydown", handlekey);
+  });
+
+  const catagories = ["general", "minimap", "speedometer", "info"];
 
   return (
     <>
       <Fade in={visible}>
-        <div className={classes.settings}>
-          <div className={classes.top}>
-            <div className={classes.toptext}>
+        <div className="settings-wrapper">
+          <div className="settings-container">
+            <div className="settings-title">
               <img src={settingsicon} alt="" />
-              <p>SETTINGS</p>
+              <div>SETTINGS</div>
             </div>
-          </div>
-          <div className={classes.map}>
-            <div className={classes.catagory}>
-              <p className={classes.catagorytitle}>General</p>
-              <Option
-                title={"Toggle Hud"}
-                value={settings.showhud}
-                option1={"SHOW"}
-                option2={"HIDE"}
-                option={"showhud"}
-              />
-              <Option
-                title={"Cinemtic Mode"}
-                value={settings.cinemtic}
-                option1={"SHOW"}
-                option2={"HIDE"}
-                option={"cinemtic"}
-              />
+            <div className="settings-catagories">
+              {catagories.map((catagory) => (
+                <p
+                  onClick={() => setCatagory(catagory)}
+                  style={{
+                    color: catagory == catagorystate ? "#88cfcd" : "white",
+                  }}
+                  className="settings-catagory"
+                >
+                  {catagory}
+                </p>
+              ))}
             </div>
-            <div className={classes.catagory}>
-              <p className={classes.catagorytitle}>Speedometer</p>
-              <Option
-                title={"Toggle Speedometer"}
-                value={settings.showspeedometer}
-                option1={"SHOW"}
-                option2={"HIDE"}
-                option={"showspeedometer"}
-              />
-              <Option
-                title={"Speed Unit"}
-                value={settings.speedunitmph}
-                option1={"MPH"}
-                option2={"KMH"}
-                option={"speedunitmph"}
-              />
+
+            <div className="settings">
+              <div className="settings-options">
+                {Config.settings.map((data) => (
+                  catagorystate == data.category &&
+                  <>
+                  {data.type == 'select'?
+                  <div onMouseOver={() => handlehover(data.description)}>
+                  <Select title={data.label} value={data.value} option1={data.option1} option2={data.option2} />
+                  </div>
+                  :data.type == 'button'?
+                  <div onMouseOver={() => handlehover(data.description)}>
+                  <Button title={data.label} value={data.value} />
+                  </div>
+                  : <div onMouseOver={() => handlehover(data.description)}>
+                  <Sliders title={data.label} value={data.value} />
+                  </div> 
+                  }
+                  </>
+                ))}
+              </div>
+              <div className="instructions">
+                {description}
+              </div>
             </div>
-            <div className={classes.catagory}>
-              <p className={classes.catagorytitle}>Minimap</p>
-              <Option
-                title={"Toggle Minimap"}
-                value={settings.showminimap}
-                option1={"SHOW"}
-                option2={"HIDE"}
-                option={"showminimap"}
-              />
+
+            <div className="settings-keys-container">
+            <div className="settings-keys">
+            <div className="key">
+                <div className="button">ENTER</div>
+                <div className="action">APPLY</div>
+              </div>
+              <div className="key">
+                <div className="button">BACKSPACE</div>
+                <div className="action">RESET</div>
+              </div>
+              <div className="key">
+                <div className="button">ESC</div>
+                <div className="action">EXIT</div>
+              </div>
             </div>
-            <div className={classes.catagory}>
-              <p className={classes.catagorytitle}>Player Status</p>
-              <Option
-                title={"Toggle Status"}
-                value={settings.showplayerstatus}
-                option1={"SHOW"}
-                option2={"HIDE"}
-                option={"showplayerstatus"}
-              />
             </div>
-          </div>
-          <div className={classes.bottom}>@AfterLife Studios</div>
-          <div className={classes.keybind}>
-            <p className={classes.key}>ESC</p>
-            <p>EXIT</p>
           </div>
         </div>
       </Fade>
