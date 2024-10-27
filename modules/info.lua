@@ -8,7 +8,7 @@ playerjob = nil
 
 CreateThread(function()
     while true do
-        if playerloaded then
+        if PlayerLoaded then
             local bankstate,cashstate,jobstate = false,false,false
             local bankincrement,cashincrement = 0,0
             local banks,cashs

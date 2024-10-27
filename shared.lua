@@ -1,13 +1,13 @@
 Config = {}
 
 --  setr game_enableFlyThroughWindscreen true
---  add this in the server.cfg for the seatbelt to work  
+--  add this in the server.cfg for the seatbelt to work
 
 Config.seatbelt = 'b'
 Config.settingskey = 'i'
 
 
-GetFuel = function (vehicle)
+GetFuel = function(vehicle)
     local fuel = math.ceil(GetVehicleFuelLevel(vehicle)) -- change this according to your exports for the fuel system
     return fuel
 end
@@ -36,123 +36,148 @@ Config.maxminimapzone = false
 -- you can increase them inorder to increase performance
 Config.speedometerspeed = 50 -- how many millisecond it will delay before updating the speedometer again
 Config.compassspeed = 50     -- how many millisecond it will delay before updating the compass again
-Config.compassstring = ' & '
-
--- the map only appears if player have this item 
-Config.gps = false -- if you want to turn on this then disable skull on foot from settings config
-Config.gpsitem = 'gps'
-
 
 ------- Settings Configuration
 --------DONT CHANGE ANYTHING IF YOU DONT KNOW WHAT YOU ARE DOING
 Config.settings = {
-
     {
         name = 'showhud',
+        label = "Toggle Hud",
+        description = "Randoma",
         show = true,
         value = true,
         type = 'button',
-        catagory = 'general'
-
+        category = 'general'
     },
     {
         name = 'cinematicmode',
+        label = 'Cinemtic Mode',
+        description = "Random",
         show = true,
         value = false,
         type = 'button',
-        catagory = 'general'
+        category = 'general'
     },
     {
         name = 'fliphud',
+        label = 'Flip Hud',
+        description = "Random",
         show = true,
         value = false,
         type = 'button',
-        catagory = 'general'
+        category = 'general'
     },
     {
         name = 'showminimap',
+        label = 'Toggle Minimap',
+        description = "Random",
         show = true,
         value = true,
         type = 'button',
-        catagory = 'minimap'
+        category = 'minimap'
     },
     {
         name = 'skullonfoot',
-        show = true, 
+        label = 'Skull on foot',
+        description = "Random",
+        show = true,
         value = false,
         type = 'button',
-        catagory = 'minimap'
+        category = 'minimap'
     },
     {
         name = 'minimapsize',
+        label = 'Minimap Size',
+        description = "Random",
         show = true,
         value = 10,
         type = 'slider',
-        catagory = 'minimap'
+        category = 'minimap'
     },
     {
         name = 'showspeedometer',
+        label = 'Toggle Speedometer',
+        description = "Random",
         show = true,
         value = true,
         type = 'button',
-        catagory = 'speedometer'
+        category = 'speedometer'
     },
     {
         name = 'speedometersize',
+        label = 'Speedometer Scale',
+        description = "Random",
         show = true,
         value = 10,
         type = 'slider',
-        catagory = 'speedometer'
+        category = 'speedometer'
     },
     {
         name = 'mphkmh',
+        label = 'Vehicle Speed Unit',
+        description = "Random",
         show = true,
-        value = 'mph',
-        type = 'button',
-        catagory = 'speedometer'
+        value = true,
+        option1 = 'KMH',
+        option2 = 'MPH',
+        type = 'select',
+        category = 'speedometer'
     },
     {
         name = 'compassize',
+        label = 'Compass Scale',
+        description = "Random",
         show = true,
         value = 10,
         type = 'slider',
-        catagory = 'speedometer'
+        category = 'speedometer'
     },
     {
         name = 'showcompass',
+        label = 'Toggle Compass',
+        description = "Random",
         show = true,
         value = true,
         type = 'button',
-        catagory = 'speedometer'
+        category = 'speedometer'
     },
     {
         name = 'showstreet',
+        label = 'Toggle Street Names',
+        description = "Random",
         show = true,
         value = true,
         type = 'button',
-        catagory = 'speedometer'
+        category = 'speedometer'
     },
     {
         name = 'seatbeltalarm',
+        label = 'Toggle Seatbelt Alarm',
+        description = "Random",
         show = true,
         value = true,
         type = 'button',
-        catagory = 'speedometer'
+        category = 'speedometer'
     },
     {
         name = 'showinfo',
+        label = 'Toggle Info',
+        description = "Random",
         show = true,
         value = true,
         type = 'button',
-        catagory = 'info'
+        category = 'info'
     },
     {
         name = 'dynamicinfo',
+        label = 'Dynamic Info',
+        description = "Random",
         show = true,
         value = true,
         type = 'button',
-        catagory = 'info'
-    },
+        category = 'info'
+    }
+
 }
 
 
@@ -162,10 +187,10 @@ Config.settings = {
 
 -- Stress Configuration
 
-Config.StressChance = 0.1          -- Default: 10% -- Percentage Stress Chance When Shooting (0-1)
-Config.MinimumStress = 50          -- Minimum Stress Level For Screen Shaking
-Config.MinimumSpeedUnbuckled = 50  -- Going Over This Speed Will Cause Stress
-Config.MinimumSpeed = 100          -- Going Over This Speed Will Cause Stress
+Config.StressChance = 0.1         -- Default: 10% -- Percentage Stress Chance When Shooting (0-1)
+Config.MinimumStress = 50         -- Minimum Stress Level For Screen Shaking
+Config.MinimumSpeedUnbuckled = 50 -- Going Over This Speed Will Cause Stress
+Config.MinimumSpeed = 100         -- Going Over This Speed Will Cause Stress
 
 Config.disablestressjobs = {
     police = true,

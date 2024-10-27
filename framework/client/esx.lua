@@ -2,18 +2,19 @@ if not (Config.framework == 'esx') then return end
 
 local ESX = exports['es_extended']:getSharedObject()
 
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(playerData)
+RegisterNetEvent('esx:PlayerLoaded')
+AddEventHandler('esx:PlayerLoaded', function(playerData)
     previouscash, previousbank = UpdateAccounts(playerData.accounts)
     cash, bank = UpdateAccounts(playerData.accounts)
     job = playerData.job.name
     grade = playerData.job.grade_label
-    streamminmap()
-    if globalsettings.skullonfoot or (not Playerhaveitem(Config.gpsitem)) then
-        TriggerEvent('Hud:updateSkullstatus', true)
+
+
+    local response = LoadHud()
+    if response then
+        DisplayHud(GlobalSettings.showhud)
+        PlayerLoaded = true
     end
-    togglehud(true)
-    playerloaded = true
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)
@@ -25,12 +26,12 @@ AddEventHandler('onResourceStart', function(resourceName)
         grade = ESX.PlayerData.job.grade_label
         previouscash, previousbank = UpdateAccounts(ESX.PlayerData.accounts)
         cash, bank = UpdateAccounts(ESX.PlayerData.accounts)
-        if globalsettings.skullonfoot or (not Playerhaveitem(Config.gpsitem)) then
-            TriggerEvent('Hud:updateSkullstatus', true)
+
+        local response = LoadHud()
+        if response then
+            DisplayHud(GlobalSettings.showhud)
+            PlayerLoaded = true
         end
-        playerloaded = true
-        streamminmap()
-        togglehud(true)
     end
 end)
 

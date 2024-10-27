@@ -1,4 +1,4 @@
-playerloaded = false
+PlayerLoaded = false
 hunger = 100
 thirst = 100
 stress = 0
@@ -8,7 +8,7 @@ aspectratio = 0
 -- MINIMAP
 CreateThread(function()
     while true do
-        if playerloaded then
+        if PlayerLoaded then
             SetRadarZoom(1100)
             _screenx, _screeny = GetActiveScreenResolution()
             _aspectratio = GetAspectRatio()
@@ -154,7 +154,7 @@ function Getminimapproperties()
     end
 end
 
-streamminmap = function()
+StreamMinimap = function()
     if Config.maxminimapzone then
         zonex = 0.083
         zoney = 0.19
@@ -163,8 +163,7 @@ streamminmap = function()
         zoneypos = 0.06
     end
 
-    Getminimapproperties()
-    Wait(1000)
+    local response = Getminimapproperties()
     RequestStreamedTextureDict("circlemap", false)
     while not HasStreamedTextureDictLoaded("circlemap") do
         Wait(100)
@@ -172,18 +171,16 @@ streamminmap = function()
     SetBlipAlpha(GetNorthRadarBlip(), 0)
     AddReplaceTexture("platform:/textures/graphics", "radarmasksm", "circlemap", "radarmasksm")
 
-    SetMinimapClipType(1)
+
     SetMinimapComponentPosition('minimap', 'L', 'B', posX, posY + -0.01, 0.15, 0.2)
-    --SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.0, 0.032, 0., 0.259)
     SetMinimapComponentPosition('minimap_mask', 'L', 'B', posX + zonexpos, posY - zoneypos, zonex, zoney)
     SetMinimapComponentPosition('minimap_blur', 'L', 'B', posX - 0.018, posY + 0.063, 0.256 + aspectratio, 0.337)
-
+    SetMinimapClipType(1)
 
     SetRadarBigmapEnabled(true, false)
     Wait(0)
     SetRadarBigmapEnabled(false, false)
 
-    DisplayRadar(true)
 end
 
 

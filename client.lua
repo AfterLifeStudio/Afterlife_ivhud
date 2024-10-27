@@ -34,7 +34,7 @@ CreateThread(function()
     SetHudComponentSize(9, 0, 0)
     DisplayRadar(false)
     while true do
-        if playerloaded then
+        if PlayerLoaded then
             local health = GetEntityHealth(cache.ped)
             local armour = GetPedArmour(cache.ped)
             local oxygen

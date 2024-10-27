@@ -2,9 +2,6 @@ if not (Config.framework == 'qb') then return end
 
 local QBCore = exports['qb-core']:GetCoreObject()
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
-    if globalsettings.skullonfoot or (not Playerhaveitem(Config.gpsitem)) then
-        TriggerEvent('Hud:updateSkullstatus', true)
-    end
     local playerdata = QBCore.Functions.GetPlayerData()
     previouscash = playerdata.money['cash']
     previousbank = playerdata.money['bank']
@@ -12,14 +9,15 @@ RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
     bank = playerdata.money['bank']
     job = playerdata.job.label
     grade = playerdata.job.grade.name
-    streamminmap()
-    togglehud(true)
-    playerloaded = true
+
+    local response = LoadHud()
+    if response then
+        DisplayHud(GlobalSettings.showhud)
+        PlayerLoaded = true
+    end
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)
-    if resourceName ~= GetCurrentResourceName() then return end
-    Wait(1000)
     local playerdata = QBCore.Functions.GetPlayerData()
     if playerdata then
         job = playerdata.job.label
@@ -28,12 +26,12 @@ AddEventHandler('onResourceStart', function(resourceName)
         previousbank = playerdata.money['bank']
         cash = playerdata.money['cash']
         bank = playerdata.money['bank']
-        if globalsettings.skullonfoot or (not Playerhaveitem(Config.gpsitem)) then
-            TriggerEvent('Hud:updateSkullstatus', true)
+
+        local response = LoadHud()
+        if response then
+            DisplayHud(GlobalSettings.showhud)
+            PlayerLoaded = true
         end
-        streamminmap()
-        togglehud(true)
-        playerloaded = true
     end
 end)
 
@@ -93,7 +91,7 @@ if (not Config.gps) then return end
 
 CreateThread(function()
     while true do
-        if playerloaded then
+        if PlayerLoaded then
             local item = QBCore.Functions.HasItem(Config.gpsitem)
             if item then
                 TriggerEvent('Hud:updateSkullstatus', true)

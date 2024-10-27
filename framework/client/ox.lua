@@ -2,25 +2,23 @@ if not (Config.framework == 'ox') then return end
 
 
 
-RegisterNetEvent("ox:playerLoaded", function()
-    playerloaded = true
-    if globalsettings.skullonfoot or (not Playerhaveitem(Config.gpsitem)) then
-        TriggerEvent('Hud:updateSkullstatus', true)
+RegisterNetEvent("ox:PlayerLoaded", function()
+    local response = LoadHud()
+    if response then
+        DisplayHud(GlobalSettings.showhud)
+        PlayerLoaded = true
     end
-    streamminmap()
-    togglehud(true)
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)
     if resourceName ~= GetCurrentResourceName() then return end
     Wait(1000)
     if player then
-        playerloaded = true
-        if globalsettings.skullonfoot or (not Playerhaveitem(Config.gpsitem)) then
-            TriggerEvent('Hud:updateSkullstatus', true)
+        local response = LoadHud()
+        if response then
+            DisplayHud(GlobalSettings.showhud)
+            PlayerLoaded = true
         end
-        streamminmap()
-        togglehud(true)
     end
 end)
 

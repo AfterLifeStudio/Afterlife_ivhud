@@ -14,7 +14,7 @@ end
 
 CreateThread(function() -- Speeding
     while true do
-        if playerloaded then
+        if PlayerLoaded then
             print(IsVehicleBlacklisted(vehicle))
             if vehicle and (not Config.disablestressjobs[playerjob]) then
                 if not IsVehicleBlacklisted(vehicle) then
@@ -97,7 +97,7 @@ end
 
 CreateThread(function()
     while true do
-        if playerloaded then
+        if PlayerLoaded then
             local ped = cache.ped
             local effectInterval = GetEffectInterval(stress)
             if stress >= 100 then

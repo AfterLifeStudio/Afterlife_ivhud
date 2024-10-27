@@ -12,12 +12,12 @@ RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
     stress = QBX.PlayerData.metadata.stress
     hunger = QBX.PlayerData.metadata.hunger
     thirst = QBX.PlayerData.metadata.thirst
-    if globalsettings.skullonfoot or (not Playerhaveitem(Config.gpsitem)) then
-        TriggerEvent('Hud:updateSkullstatus', true)
+
+    local response = LoadHud()
+    if response then
+        DisplayHud(GlobalSettings.showhud)
+        PlayerLoaded = true
     end
-    streamminmap()
-    togglehud(true)
-    playerloaded = true
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)
@@ -34,12 +34,12 @@ AddEventHandler('onResourceStart', function(resourceName)
         stress = QBX.PlayerData.metadata.stress
         hunger = QBX.PlayerData.metadata.hunger
         thirst = QBX.PlayerData.metadata.thirst
-        if globalsettings.skullonfoot or (not Playerhaveitem(Config.gpsitem)) then
-            TriggerEvent('Hud:updateSkullstatus', true)
+
+        local response = LoadHud()
+        if response then
+            DisplayHud(GlobalSettings.showhud)
+            PlayerLoaded = true
         end
-        streamminmap()
-        togglehud(true)
-        playerloaded = true
     end
 end)
 

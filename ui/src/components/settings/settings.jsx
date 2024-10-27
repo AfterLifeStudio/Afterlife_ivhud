@@ -6,17 +6,20 @@ import Button from "./button";
 import Sliders from "./slider";
 import { NuiEvent } from "../../hooks/NuiEvent";
 import { nuicallback } from "../../utils/nuicallback";
+import { useDispatch } from "react-redux";
 import { Config } from "./settingsdata";
-const Settings = () => {
-  const [settings, setSettings] = useState({
-    catagory: "general",
-  });
+import { store } from "../../store/store";
+import { addsettings } from "../../store/settings/settings";
 
+const Settings = () => {
   const [catagorystate, setCatagory] = useState("general");
   const [visible, setVisible] = useState(true);
   const [description, setDescription] = useState("")
+  
+  const SettingsData = useSelector(store => store.settings)
+
   const handlesettings = (data) => {
-    setSettings(data);
+    useDispatch(addsettings(data))
     setVisible(true);
   };
 
@@ -28,9 +31,19 @@ const Settings = () => {
 
   useEffect(() => {
     const handlekey = (e) => {
-      if (visible && e.code == "Escape") {
-        setVisible(false);
-        nuicallback("exitsettings");
+      if (visible) {
+        if (e.code == "Escape") {
+          setVisible(false);
+          nuicallback("exitsettings",SettingsData);
+        } else if (e.code == "Enter") {
+          nuicallback("settingsconfirm").then((data) =>{
+            useDispatch(addsettings(data))
+          });
+        } else if (e.code == "Backspace") {
+          nuicallback("settingsreset").then((data) =>{
+            useDispatch(addsettings(data))
+          });
+        }
       }
     };
 
@@ -65,7 +78,7 @@ const Settings = () => {
 
             <div className="settings">
               <div className="settings-options">
-                {Config.settings.map((data) => (
+                {SettingsData.map((data) => (
                   catagorystate == data.category &&
                   <>
                   {data.type == 'select'?
