@@ -1,100 +1,49 @@
-vehicle = nil
-speedometerloop = 10
+local vehicle
+
 SetFlyThroughWindscreenParams(15.0, 20.0, 17.0, -500.0)
 
-
-local function togglespeedometer(state,hideseatbelt)
-    SendNUIMessage({
-        type = 'speedometer-toggle',
-        show = state,
-        hideseatbelt = hideseatbelt
-    })
-end
-
-local function togglecompass(state)
-    SendNUIMessage({
-        type = 'compass-toggle',
-        show = state
-    })
-end
-
-
-
-lib.onCache('vehicle', function(vehicledata)
-    vehicle = vehicledata
-        if vehicle then
-            if globalsettings.showspeedometer then
-                local hideseatbelt = false
-                if (not doesseatbeltexist(vehicle)) then
-                    hideseatbelt = true
-                end
-                togglespeedometer(true,hideseatbelt)
-            end
-            if globalsettings.showcompass then
-                togglecompass(true)
-            end
-
-            if globalsettings.skullonfoot and (not Config.gps) then
-            TriggerEvent('Hud:updateSkullstatus',true)
-            end
-        else
-            if globalsettings.showspeedometer then
-                togglespeedometer(false,false)
-            end
-            if globalsettings.showcompass then
-                togglecompass(false)
-            end
-
-            if globalsettings.skullonfoot and (not Config.gps) then
-            TriggerEvent('Hud:updateSkullstatus',false)
-            end
-
-            Seatbeltstate = false
-            SendNUIMessage({
-                type = 'disableseatbelt',
-            })
-        end
-end)
-
-
-
-
-
+---@class VehicleState
+local VehicleState = {
+    vehspeed = 0,
+    vehrpm = 0,
+    vehfuel = 0,
+    vehgear = 0,
+    damage = 0,
+    seatbelt = false
+}
 
 CreateThread(function()
     while true do
         local sleep = 1000
+
         if vehicle then
-            sleep = Config.speedometerspeed 
-            local vehspeed
-            if globalsettings.speedounit == 'kmh' then
-                vehspeed = math.ceil(GetEntitySpeed(vehicle) * 3.6)
+            sleep = Config.speedometerspeed
+            if GlobalSettings.speedounit then
+                VehicleState.vehspeed = math.ceil(GetEntitySpeed(vehicle) * 2.236936)
             else
-                vehspeed = math.ceil(GetEntitySpeed(vehicle) * 2.236936)
+                VehicleState.vehspeed = math.ceil(GetEntitySpeed(vehicle) * 3.6)
             end
-            local vehrpm = GetVehicleCurrentRpm(vehicle)
-            local vehfuel = GetFuel(vehicle) 
-            local vehgear = GetVehicleCurrentGear(vehicle)
-         
-            local data = {
-                show = true,
-                rpm = vehrpm,
-                speed = vehspeed,
-                fuel = vehfuel,
-                engine = 0,
-                seatbelt = false,
-                gear = vehgear,
-                mileage = 0
-            }
-            NuiMessage('speedometer',data)
-        else
-            local data = {show = false}
-            NuiMessage('speedometer',data)
+            VehicleState.vehrpm = GetVehicleCurrentRpm(vehicle)
+            VehicleState.vehfuel = GetFuel(vehicle)
+            VehicleState.vehgear = GetVehicleCurrentGear(vehicle)
+            VehicleState.damage = GetVehicleDamage(vehicle)
         end
+
+        local data = {
+            show = vehicle and true or false,
+            rpm = VehicleState.vehrpm,
+            speed = VehicleState.vehspeed,
+            fuel = VehicleState.vehfuel,
+            engine = VehicleState.damage,
+            seatbelt = VehicleState.seatbelt,
+            gear = VehicleState.vehgear,
+            mileage = 0
+        }
+        NuiMessage('speedometer', data)
+
         Wait(sleep)
     end
 end)
-
 
 
 
@@ -125,4 +74,64 @@ CreateThread(function()
         end
         Wait(sleep)
     end
+end)
+
+
+
+
+
+CreateThread(function()
+    while true do
+        local sleep = 1000
+        if VehicleState.seatbelt then
+            sleep = 0
+            DisableControlAction(0, 75, true)
+            DisableControlAction(27, 75, true)
+        end
+        Wait(sleep)
+    end
+end)
+
+
+
+local doesseatbeltexist = function(vehicle)
+    local class = GetVehicleClass(vehicle)
+    if class ~= 8 and class ~= 13 and class ~= 14 then
+        return true
+    end
+    return false
+end
+
+local toggleseatbelt = function()
+    if vehicle then
+        if doesseatbeltexist(vehicle) then
+            VehicleState.seatbelt = not VehicleState.seatbelt
+            if VehicleState.seatbelt then
+                SetFlyThroughWindscreenParams(1000.0, 1000.0, 0.0, 0.0)
+            else
+                SetFlyThroughWindscreenParams(15.0, 20.0, 17.0, -500.0)
+            end
+        end
+    end
+end
+
+
+
+lib.addKeybind({
+    name = 'seatbelt',
+    description = 'Toggle vehicle seatbelt',
+    defaultKey = Config.seatbelt,
+    onPressed = function(self)
+        toggleseatbelt()
+    end,
+})
+
+
+
+
+
+
+lib.onCache('vehicle', function(vehicledata)
+    vehicle = vehicledata
+    VehicleState.seatbelt = false
 end)

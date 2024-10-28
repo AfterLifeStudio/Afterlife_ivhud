@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 
 import Fade from "../utils/fade";
 import { NuiEvent } from "../hooks/NuiEvent";
-import { useSelector, useDispatch } from 'react-redux'
-import { store } from "../store/store";
-import { settingsSlice } from "../store/settings/settings";
+import { useSelector } from 'react-redux'
 import speedoutline from "../assets/images/speedometer-outline-status.png";
 import fuel from "../assets/images/speedometer-fuel.png";
 import engine from "../assets/images/speedometer-engine.png";
@@ -33,7 +31,7 @@ const Speedometer = () => {
 
   NuiEvent("speedometer", handlespeedometer);
 
-  const settings = useSelector(settingsSlice.getInitialState)
+  const settings = useSelector((state) => state.settings)
 
   let vehiclerpm = 300 / vehicle.rpm / 4;
   if (vehiclerpm < 81) {
@@ -46,7 +44,7 @@ const Speedometer = () => {
   const gears = [6, 5, 4, 3, 2, 1, 0];
 
   const visible = settings.showspeedometer == true ? vehicle.show : false
-
+console.log()
 
   useEffect(() => {
     const alarm = document.getElementById("alarm");

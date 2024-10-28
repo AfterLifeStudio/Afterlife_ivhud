@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react"
-import { noop } from "@mantine/core"
+import { useEffect, useRef } from "react";
+import noop from "../utils/misc"
 
 export const NuiEvent = (action, handler) => {
   const savedHandler = useRef(noop)

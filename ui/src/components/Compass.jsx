@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { NuiEvent } from "../hooks/NuiEvent";
-
+import { useSelector } from "react-redux";
+import Fade from "../utils/fade";
 
 const Compass = () => {
   const [compass, setCompass] = useState({
@@ -13,7 +14,6 @@ const Compass = () => {
 
 useEffect(() => {
   const element = document.getElementById("compass");
-  
   let scroll = -((2133 / (-360)) * compass.heading)
   element.scrollLeft = scroll;
 })
@@ -22,19 +22,15 @@ const handlecompass = (data) => {
   setCompass(data);
 };
 
-const handlescroll = () => {
-  // const element = document.getElementById("compass");
-  
-  // let scroll = -((2133 / (-360)) * compass.heading)
-  // console.log(element.scrollLeft,scroll)
-}
+const settings = useSelector((state) => state.settings)
 
 NuiEvent("compass", handlecompass);
 
   return (
     <>
+    <Fade in={settings.showcompass}>
   <div className="compass-container">
-    <div onScroll={handlescroll} id="compass" className="compass">
+    <div id="compass" className="compass">
 
       <div className="compassvalues">
       <div className="compassbar"></div>
@@ -305,7 +301,7 @@ NuiEvent("compass", handlecompass);
       <div className="location2">{compass.location2}</div>
     </div>
   </div>
-
+  </Fade>
     </>
   );
 };

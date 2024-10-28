@@ -6,7 +6,7 @@ import { nuicallback } from "../../utils/nuicallback";
 
 const Select = (data) => {
 
-  console.log(data.value)
+
   const [input, setinput] = useState(data.value);
 
   const handleinput = (input,option) => {
@@ -20,13 +20,13 @@ const Select = (data) => {
         <div>{data.title}</div>
         <div className='select-value'>
           <div
-            onClick={() => handleinput(true,data.option)}
+            onClick={() => handleinput(true,data.name)}
             style={{ opacity: input == true ? "100%" : "50%" }}
           >
             {data.option1}
           </div>
           <div
-            onClick={() => handleinput(false,data.option)}
+            onClick={() => handleinput(false,data.name)}
             style={{ opacity: input == false ? "100%" : "50%" }}
           >
            {data.option2}

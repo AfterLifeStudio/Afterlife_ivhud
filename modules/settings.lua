@@ -22,7 +22,7 @@ function opensettingsmenu()
     SetNuiFocus(true,true)
  
     PlaySoundFromEntity(-1, "FocusIn", cache.ped, "HintCamSounds", 0, 0)
-    NuiMessage('settings',Config.settings)
+    NuiMessage('settings',{visible = true,settings = Config.settings})
 end
 
 
@@ -35,14 +35,17 @@ LoadHud = function ()
     local data = GetResourceKvpString('Hud:Data')
     
     if data then
-        GlobalSettings = json.decode(data)
-        Config.settings = json.decode(data)
+        local data = json.decode(data)
+        for i = 1, #data do
+            GlobalSettings[data[i].name] = data[i].value
+        end
+        Config.settings = data
     else
         SetResourceKvp('Hud:Data', json.encode(Config.settings))
         goto Repeat
     end
 
-    NuiMessage('settings',Config.settings)
+    NuiMessage('settings',{visible = false,settings = GlobalSettings})
 
     local response = StreamMinimap()
     return response
@@ -53,53 +56,54 @@ end
 
 
 RegisterNUICallback('exitsettings', function (data, cb)
-    Config.settings = data
+    for i = 1,#Config.settings do
+        Config.settings[i].value = GlobalSettings[Config.settings[i].name].value
+    end
+
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
     SetNuiFocus(false,false)
     cb{{}}
 end)
 
-RegisterNUICallback('settingsconfirm', function (data, cb)
-    local value = data.input
-    GlobalSettings[data.option] = value
-    Config.settings[data.option] = value
-    SetResourceKvp('Hud:Data', json.encode(Config.settings))
+RegisterNUICallback('settings', function (data, cb)
+
+    for i = 1,#Config.settings do
+        if Config.settings[i].name == data.option then
+            Config.settings[i].value = data.input
+            break
+        end
+    end
 
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
-    SetNuiFocus(false,false)
-
-    cb{Config.settings}
 end)
 
-RegisterNUICallback('settingsreset', function (data, cb)
-    local value = data.input
 
-    for i = 1,#defaultsettings do
-        GlobalSettings[i] = {
-            name = defaultsettings[i].name,
-            show = defaultsettings[i].show,
-            value = defaultsettings[i].value,
-            type = defaultsettings[i].type,
-            catagory = defaultsettings[i].catagory
-        } 
+
+RegisterNUICallback('settingsconfirm', function (data, cb)
+    for i = 1,#Config.settings do
+        GlobalSettings[Config.settings[i].name] = Config.settings[i].value
     end
-
-    for i = 1,#defaultsettings do
-        Config.settings[i] = {
-            name = defaultsettings[i].name,
-            show = defaultsettings[i].show,
-            value = defaultsettings[i].value,
-            type = defaultsettings[i].type,
-            catagory = defaultsettings[i].catagory
-        } 
-    end
-
 
     SetResourceKvp('Hud:Data', json.encode(defaultsettings))
 
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
     SetNuiFocus(false,false)
+    NuiMessage('settings',{visible = true,settings = GlobalSettings})
+end)
 
-    cb{defaultsettings}
+
+
+RegisterNUICallback('settingsreset', function (data, cb)
+
+    for i = 1,#defaultsettings do
+        GlobalSettings[defaultsettings[i].name] = defaultsettings[i].value
+        Config.settings[i].value = defaultsettings[i].value
+    end
+
+    SetResourceKvp('Hud:Data', json.encode(defaultsettings))
+
+    PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
+    SetNuiFocus(false,false)
+    NuiMessage('settings',{visible = true,settings = GlobalSettings})
 end)
 

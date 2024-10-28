@@ -5,7 +5,7 @@ import 'react-range-slider-input/dist/style.css';
 import reseticon from '../../assets/images/reset.png'
 const Sliders = (data) => {
 
-    const handleinput = (event) => {
+    const handleinput = (event,option) => {
         let value = event[1]
         setinput(value)
         nuicallback("settings",{option,value})
@@ -21,7 +21,7 @@ const Sliders = (data) => {
         <div>{input}</div>
         <div className="slider">
         <img onClick={() => setinput(data.value)} className="fas" src={reseticon} alt="" />
-       <RangeSlider className="single-thumb" value={[0,input]}   id="slider" onInput={handleinput}    defaultValue={[0, data.value]}    rangeSlideDisabled={true}     thumbsDisabled={[true, false]} />
+       <RangeSlider className="single-thumb" value={[0,input]}   id="slider" onInput={() => handleinput(event,data.name)}    defaultValue={[0, data.value]}    rangeSlideDisabled={true}     thumbsDisabled={[true, false]} />
        </div>
         </div>
       </div>

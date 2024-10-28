@@ -1,8 +1,5 @@
 import { React, useState } from "react";
 import { nuicallback } from "../../utils/nuicallback";
-import { Checkbox } from '@mantine/core';
-
-
 
 const Button = (data) => {
 
@@ -21,7 +18,7 @@ const Button = (data) => {
         <div>{data.title}</div>
         <div className='select-value'>
           <div className="option-button-text">{input ? 'on' : 'off'}</div>
-          <div style={{justifyContent: input ? 'end' : 'start'}} onClick={handleinput} className='option-button'>
+          <div style={{justifyContent: input ? 'end' : 'start'}} onClick={() => handleinput(data.name)} className='option-button'>
             <div style={{opacity: input ? '100%' : '50%'}}></div>
           </div>
         </div>

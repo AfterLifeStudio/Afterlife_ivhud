@@ -12,6 +12,11 @@ GetFuel = function(vehicle)
     return fuel
 end
 
+GetVehicleDamage = function (vehicle)
+    local damage = math.ceil(GetEntityHealth(vehicle) / 10)
+    return damage
+end
+
 GetFramework = function()
     if GetResourceState('es_extended') ~= 'missing' then
         return 'esx'
@@ -40,7 +45,7 @@ Config.compassspeed = 50     -- how many millisecond it will delay before updati
 ------- Settings Configuration
 --------DONT CHANGE ANYTHING IF YOU DONT KNOW WHAT YOU ARE DOING
 Config.settings = {
-    {
+    ['showhud'] = {
         name = 'showhud',
         label = "Toggle Hud",
         description = "Randoma",
@@ -49,7 +54,7 @@ Config.settings = {
         type = 'button',
         category = 'general'
     },
-    {
+    ['cinematicmode'] = {
         name = 'cinematicmode',
         label = 'Cinemtic Mode',
         description = "Random",
@@ -58,7 +63,7 @@ Config.settings = {
         type = 'button',
         category = 'general'
     },
-    {
+    ['fliphud'] = {
         name = 'fliphud',
         label = 'Flip Hud',
         description = "Random",
@@ -67,7 +72,7 @@ Config.settings = {
         type = 'button',
         category = 'general'
     },
-    {
+    ['showminimap'] = {
         name = 'showminimap',
         label = 'Toggle Minimap',
         description = "Random",
@@ -76,7 +81,7 @@ Config.settings = {
         type = 'button',
         category = 'minimap'
     },
-    {
+    ['skullonfoot'] = {
         name = 'skullonfoot',
         label = 'Skull on foot',
         description = "Random",
@@ -85,7 +90,7 @@ Config.settings = {
         type = 'button',
         category = 'minimap'
     },
-    {
+    ['minimapsize'] = {
         name = 'minimapsize',
         label = 'Minimap Size',
         description = "Random",
@@ -94,7 +99,7 @@ Config.settings = {
         type = 'slider',
         category = 'minimap'
     },
-    {
+    ['showspeedometer'] = {
         name = 'showspeedometer',
         label = 'Toggle Speedometer',
         description = "Random",
@@ -103,7 +108,7 @@ Config.settings = {
         type = 'button',
         category = 'speedometer'
     },
-    {
+    ['speedometersize'] = {
         name = 'speedometersize',
         label = 'Speedometer Scale',
         description = "Random",
@@ -112,7 +117,7 @@ Config.settings = {
         type = 'slider',
         category = 'speedometer'
     },
-    {
+    ['mphkmh'] = {
         name = 'mphkmh',
         label = 'Vehicle Speed Unit',
         description = "Random",
@@ -123,7 +128,7 @@ Config.settings = {
         type = 'select',
         category = 'speedometer'
     },
-    {
+    ['compassize'] = {
         name = 'compassize',
         label = 'Compass Scale',
         description = "Random",
@@ -132,7 +137,7 @@ Config.settings = {
         type = 'slider',
         category = 'speedometer'
     },
-    {
+    ['showcompass'] = {
         name = 'showcompass',
         label = 'Toggle Compass',
         description = "Random",
@@ -141,7 +146,7 @@ Config.settings = {
         type = 'button',
         category = 'speedometer'
     },
-    {
+    ['showstreet'] = {
         name = 'showstreet',
         label = 'Toggle Street Names',
         description = "Random",
@@ -150,7 +155,7 @@ Config.settings = {
         type = 'button',
         category = 'speedometer'
     },
-    {
+    ['seatbeltalarm'] = {
         name = 'seatbeltalarm',
         label = 'Toggle Seatbelt Alarm',
         description = "Random",
@@ -159,7 +164,7 @@ Config.settings = {
         type = 'button',
         category = 'speedometer'
     },
-    {
+    ['showinfo'] = {
         name = 'showinfo',
         label = 'Toggle Info',
         description = "Random",
@@ -168,7 +173,7 @@ Config.settings = {
         type = 'button',
         category = 'info'
     },
-    {
+    ['dynamicinfo'] = {
         name = 'dynamicinfo',
         label = 'Dynamic Info',
         description = "Random",

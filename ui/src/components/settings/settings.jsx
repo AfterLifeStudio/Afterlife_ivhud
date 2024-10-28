@@ -7,20 +7,23 @@ import Sliders from "./slider";
 import { NuiEvent } from "../../hooks/NuiEvent";
 import { nuicallback } from "../../utils/nuicallback";
 import { useDispatch } from "react-redux";
-import { Config } from "./settingsdata";
-import { store } from "../../store/store";
-import { addsettings } from "../../store/settings/settings";
+import { useSelector } from 'react-redux'
+import { update } from "../../store/settings/settingsSlice";
+import { settingsdata } from "./settingsdata";
 
 const Settings = () => {
   const [catagorystate, setCatagory] = useState("general");
   const [visible, setVisible] = useState(true);
   const [description, setDescription] = useState("")
-  
-  const SettingsData = useSelector(store => store.settings)
+  const [SettingsData, setSettingsData] = useState(settingsdata)
+
+  const dispatch = useDispatch();
+
 
   const handlesettings = (data) => {
-    useDispatch(addsettings(data))
-    setVisible(true);
+    setVisible(data.visible);
+    dispatch(update(data.settings))
+ 
   };
 
   NuiEvent("settings", handlesettings);
@@ -34,15 +37,11 @@ const Settings = () => {
       if (visible) {
         if (e.code == "Escape") {
           setVisible(false);
-          nuicallback("exitsettings",SettingsData);
+          nuicallback("exitsettings", SettingsData);
         } else if (e.code == "Enter") {
-          nuicallback("settingsconfirm").then((data) =>{
-            useDispatch(addsettings(data))
-          });
+          nuicallback("settingsconfirm")
         } else if (e.code == "Backspace") {
-          nuicallback("settingsreset").then((data) =>{
-            useDispatch(addsettings(data))
-          });
+          nuicallback("settingsreset")
         }
       }
     };
@@ -64,7 +63,7 @@ const Settings = () => {
             </div>
             <div className="settings-catagories">
               {catagories.map((catagory) => (
-                <p
+                <div
                   onClick={() => setCatagory(catagory)}
                   style={{
                     color: catagory == catagorystate ? "#88cfcd" : "white",
@@ -72,7 +71,7 @@ const Settings = () => {
                   className="settings-catagory"
                 >
                   {catagory}
-                </p>
+                </div>
               ))}
             </div>
 
@@ -83,14 +82,14 @@ const Settings = () => {
                   <>
                   {data.type == 'select'?
                   <div onMouseOver={() => handlehover(data.description)}>
-                  <Select title={data.label} value={data.value} option1={data.option1} option2={data.option2} />
+                  <Select title={data.label} name={data.name} value={data.value} option1={data.option1} option2={data.option2} />
                   </div>
                   :data.type == 'button'?
                   <div onMouseOver={() => handlehover(data.description)}>
-                  <Button title={data.label} value={data.value} />
+                  <Button title={data.label} name={data.name} value={data.value} />
                   </div>
                   : <div onMouseOver={() => handlehover(data.description)}>
-                  <Sliders title={data.label} value={data.value} />
+                  <Sliders title={data.label} name={data.name} value={data.value} />
                   </div> 
                   }
                   </>

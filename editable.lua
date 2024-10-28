@@ -2,7 +2,7 @@ PlayerLoaded = false
 hunger = 100
 thirst = 100
 stress = 0
-Seatbeltstate = false
+
 currentaspectratio, _aspectratio, screenx, screeny, _screenx, _screeny = 0, 0, 0, 0, 0, 0
 aspectratio = 0
 -- MINIMAP
@@ -26,7 +26,7 @@ end)
 function Getminimapproperties()
     posX = 0.835
     posY = 0.003
-    if globalsettings.fliphud then
+    if GlobalSettings.fliphud then
         posX = -0.011
         posY = 0.003
     end
@@ -34,7 +34,7 @@ function Getminimapproperties()
     if screenx == 4096 and screeny == 2160 then
         posX = 0.862
         posY = -0.006
-        if globalsettings.fliphud then
+        if GlobalSettings.fliphud then
             posX = -0.01
             posY = 0.002
         end
@@ -44,7 +44,7 @@ function Getminimapproperties()
     if screenx == 2560 and screeny == 1080 then
         posX = 0.97
         posY = -0.045
-        if globalsettings.fliphud then
+        if GlobalSettings.fliphud then
             posX = -0.157
             posY = -0.045
         end
@@ -54,7 +54,7 @@ function Getminimapproperties()
     if screenx == 2560 and screeny == 1600 then
         posX = 0.7425
         posY = 0.016
-        if globalsettings.fliphud then
+        if GlobalSettings.fliphud then
             posX = -0.017
             posY = 0.0105
         end
@@ -64,7 +64,7 @@ function Getminimapproperties()
     if screenx == 2560 and screeny == 1440 then
         posX = 0.835
         posY = 0.003
-        if globalsettings.fliphud then
+        if GlobalSettings.fliphud then
             posX = -0.01
             posY = 0.002
         end
@@ -74,7 +74,7 @@ function Getminimapproperties()
     if screenx == 2048 and screeny == 1536 then
         posX = 0.5919
         posY = 0.0186
-        if globalsettings.fliphud then
+        if GlobalSettings.fliphud then
             posX = -0.01
             posY = 0.0186
         end
@@ -84,7 +84,7 @@ function Getminimapproperties()
     if screenx == 1680 and screeny == 1050 then
         posX = 0.744
         posY = 0.016
-        if globalsettings.fliphud then
+        if GlobalSettings.fliphud then
             posX = -0.018
             posY = 0.015
         end
@@ -94,7 +94,7 @@ function Getminimapproperties()
     if screenx == 1440 and screeny == 900 then
         posX = 0.744
         posY = 0.016
-        if globalsettings.fliphud then
+        if GlobalSettings.fliphud then
             posX = -0.018
             posY = 0.015
         end
@@ -105,7 +105,7 @@ function Getminimapproperties()
     if screenx == 1280 and screeny == 1024 then
         posX = 0.55
         posY = 0.016
-        if globalsettings.fliphud then
+        if GlobalSettings.fliphud then
             posX = -0.015
             posY = 0.014
         end
@@ -115,7 +115,7 @@ function Getminimapproperties()
     if screenx == 1024 and screeny == 768 then
         posX = 0.597
         posY = 0.020
-        if globalsettings.fliphud then
+        if GlobalSettings.fliphud then
             posX = -0.015
             posY = 0.0186
         end
@@ -125,7 +125,7 @@ function Getminimapproperties()
     if screenx == 800 and screeny == 600 then
         posX = 0.597
         posY = 0.020
-        if globalsettings.fliphud then
+        if GlobalSettings.fliphud then
             posX = -0.015
             posY = 0.0186
         end
@@ -140,7 +140,7 @@ function Getminimapproperties()
         currentaspectratio = GetAspectRatio()
         local r = 1.7777777910233 - currentaspectratio
         aspectratio = -(r / 10)
-        if not (globalsettings.fliphud) then
+        if not (GlobalSettings.fliphud) then
             if not (GetIsWidescreen()) then
                 aspectratio = aspectratio + -0.02
                 posX = posX + 0.02
@@ -187,28 +187,6 @@ end
 
 
 
-RegisterNetEvent('Hud:updateSkullstatus', function(state)
-    SendNUIMessage({
-        type = 'dead',
-        state = state
-    })
-end)
-
-
--- AddEventHandler('gameEventTriggered', function(event, args)
---     if event == "CEventNetworkEntityDamage" and args[6] == 1 then
-
---         if not IsEntityAPed(args[1]) or not IsPedAPlayer(args[1]) then
---             return
---         end
---         local victimPed = args[1] -- The victim entity (ped).
---         local victimPlayer = Getcache.serverId(NetworkGetPlayerIndexFromPed(victimPed))
-
---         if victimPlayer == cache.serverId then
---             TriggerEvent('Hud:updateSkullstatus',false)
---         end
---     end
--- end)
 
 RegisterCommand('resetminimap', function()
     streamminmap()
@@ -216,7 +194,7 @@ end)
 
 
 RegisterCommand('cash', function()
-    if globalsettings.dynamicinfo then
+    if GlobalSettings.dynamicinfo then
         SendNUIMessage({
             type = 'showcash'
         })
@@ -224,7 +202,7 @@ RegisterCommand('cash', function()
 end)
 
 RegisterCommand('bank', function()
-    if globalsettings.dynamicinfo then
+    if GlobalSettings.dynamicinfo then
         SendNUIMessage({
             type = 'showbank'
         })
@@ -232,7 +210,7 @@ RegisterCommand('bank', function()
 end)
 
 RegisterCommand('job', function()
-    if globalsettings.dynamicinfo then
+    if GlobalSettings.dynamicinfo then
         SendNUIMessage({
             type = 'showjob'
         })
@@ -240,70 +218,7 @@ RegisterCommand('job', function()
 end)
 
 
-CreateThread(function()
-    while true do
-        local VehicleDamage = math.ceil(GetEntityHealth(vehicle) / 10)
-        SendNUIMessage({
-            type = 'enginehealth',
-            enginehealth = VehicleDamage
-        })
-        Wait(1000)
-    end
-end)
 
-
-
-
-CreateThread(function()
-    while true do
-        local sleep = 1000
-        if Seatbeltstate then
-            sleep = 0
-            DisableControlAction(0, 75, true)
-            DisableControlAction(27, 75, true)
-        end
-        Wait(sleep)
-    end
-end)
-
-
-
-function doesseatbeltexist(vehicle)
-    local class = GetVehicleClass(vehicle)
-    if class ~= 8 and class ~= 13 and class ~= 14 then
-        return true
-    end
-    return false
-end
-
-local toggleseatbelt = function()
-    if cache.vehicle then
-        if doesseatbeltexist(cache.vehicle) then
-            Seatbeltstate = not Seatbeltstate
-            SendNUIMessage({
-                type = 'seatbelt',
-                state = Seatbeltstate
-            })
-
-            if Seatbeltstate then
-                SetFlyThroughWindscreenParams(1000.0, 1000.0, 0.0, 0.0)
-            else
-                SetFlyThroughWindscreenParams(15.0, 20.0, 17.0, -500.0)
-            end
-        end
-    end
-end
-
-
-
-lib.addKeybind({
-    name = 'seatbelt',
-    description = 'Toggle vehicle seatbelt',
-    defaultKey = Config.seatbelt,
-    onPressed = function(self)
-        toggleseatbelt()
-    end,
-})
 
 
 lib.addKeybind({
@@ -316,23 +231,15 @@ lib.addKeybind({
 })
 
 
-local radarloop 
+-- local radarloop 
 
 
-hideradarloop = function ()
-    while radarloop do
-        HideHudAndRadarThisFrame()
-        Wait(0)
-    end
-end
+-- hideradarloop = function ()
+--     while radarloop do
+--         HideHudAndRadarThisFrame()
+--         Wait(0)
+--     end
+-- end
 
-ShowHud = function(state)
-    SendNUIMessage({
-        type = 'pausemenutogglehud',
-        state = not state
-    })
-    radarloop = not state
-    hideradarloop()
-end
 
 

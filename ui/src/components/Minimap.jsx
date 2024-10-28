@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Fade from "../utils/fade";
 import { NuiEvent } from "../hooks/NuiEvent";
-import { settingsSlice } from "../store/settings/settings";
 import { useSelector } from "react-redux";
 import outline from "../Assets/images/minimap-outline.png";
 import minimapdead from "../Assets/images/minimap-dead.png";
@@ -22,7 +21,6 @@ import mic from "../Assets/images/microphone-solid.png";
 
 const Minimap = () => {
   const [status, setStatus] = useState({
-    show: true,
     skull: true,
     health: 50,
     armour: 50,
@@ -38,7 +36,7 @@ const Minimap = () => {
 
   NuiEvent("status", handlestatus);
 
-  const settings = useSelector(settingsSlice.getInitialState)
+  const settings = useSelector((state) => state.settings)
 
   return (
     <>
