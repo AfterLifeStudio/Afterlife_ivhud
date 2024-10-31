@@ -12,13 +12,14 @@ local VehicleState = {
     seatbelt = false
 }
 
+
 CreateThread(function()
     while true do
         local sleep = 1000
 
         if vehicle then
             sleep = Config.speedometerspeed
-            if GlobalSettings.speedounit then
+            if GlobalSettings.mphkmh then
                 VehicleState.vehspeed = math.ceil(GetEntitySpeed(vehicle) * 2.236936)
             else
                 VehicleState.vehspeed = math.ceil(GetEntitySpeed(vehicle) * 3.6)
@@ -27,20 +28,19 @@ CreateThread(function()
             VehicleState.vehfuel = GetFuel(vehicle)
             VehicleState.vehgear = GetVehicleCurrentGear(vehicle)
             VehicleState.damage = GetVehicleDamage(vehicle)
+
+
+            local data = {
+                rpm = VehicleState.vehrpm,
+                speed = VehicleState.vehspeed,
+                fuel = VehicleState.vehfuel,
+                engine = VehicleState.damage,
+                seatbelt = VehicleState.seatbelt,
+                gear = VehicleState.vehgear,
+                mileage = 0
+            }
+            NuiMessage('speedometer', data)
         end
-
-        local data = {
-            show = vehicle and true or false,
-            rpm = VehicleState.vehrpm,
-            speed = VehicleState.vehspeed,
-            fuel = VehicleState.vehfuel,
-            engine = VehicleState.damage,
-            seatbelt = VehicleState.seatbelt,
-            gear = VehicleState.vehgear,
-            mileage = 0
-        }
-        NuiMessage('speedometer', data)
-
         Wait(sleep)
     end
 end)
@@ -61,15 +61,11 @@ CreateThread(function()
             local dgr = -(GetGameplayCamRot(0).z - 180)
 
             local data = {
-                show = true,
                 heading = dgr,
                 location1 = location1,
                 location2 = location2,
             }
 
-            NuiMessage('compass', data)
-        else
-            local data = { show = false }
             NuiMessage('compass', data)
         end
         Wait(sleep)
@@ -133,5 +129,8 @@ lib.addKeybind({
 
 lib.onCache('vehicle', function(vehicledata)
     vehicle = vehicledata
+    local state = vehicle and true or false
+    NuiMessage('speedometervisible', state)
+    NuiMessage('compassvisible', state)
     VehicleState.seatbelt = false
 end)

@@ -11,23 +11,24 @@ const initialState = {
   showhud: true,
   showcompass: true,
   cinematicmode: false,
-  mphkmh: true,
+  mphkmh: false,
   skullonfoot: false,
   showspeedometer: true,
   compassize: 1.0,
   fliphud: false,
 };
 
-export const counterSlice = createSlice({
+
+export const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
     update: (state, action) => {
-      state.value = action.payload;
-    },
+      return action.payload
+    }
   },
 });
 
-export const { update } = counterSlice.actions;
+export const { update } = settingsSlice.actions;
 
-export default counterSlice.reducer;
+export default settingsSlice.reducer;

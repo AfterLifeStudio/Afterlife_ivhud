@@ -12,8 +12,8 @@ import fuelicon from "../assets/images/gas-pump-solid.png";
 import alarm from "../assets/sound/alarm.mp3"
 
 const Speedometer = () => {
+  const [vehiclevisible, setVehicleVisible] = useState(false)
   const [vehicle, setVehicle] = useState({
-    show: true,
     mileage: 200,
     speed: 0,
     fuel: 70,
@@ -25,12 +25,17 @@ const Speedometer = () => {
 
 
 
+  const handlevisible = (state) => {
+    setVehicleVisible(state)
+  }
+
   const handlespeedometer = (data) => {
     setVehicle(data);
   };
 
   NuiEvent("speedometer", handlespeedometer);
-
+  NuiEvent("speedometervisible", handlevisible);
+  
   const settings = useSelector((state) => state.settings)
 
   let vehiclerpm = 300 / vehicle.rpm / 4;
@@ -43,16 +48,17 @@ const Speedometer = () => {
 
   const gears = [6, 5, 4, 3, 2, 1, 0];
 
-  const visible = settings.showspeedometer == true ? vehicle.show : false
-console.log()
+  const visible = settings.showspeedometer ? vehiclevisible : false
+
 
   useEffect(() => {
-    const alarm = document.getElementById("alarm");
-    if (!vehicle.seatbelt && settings.seatbeltalarm){
-      alarm.play();
-    }else {
-      alarm.pause();
-    }
+    // const alarm = document.getElementById("alarm");
+    // if (!vehicle.seatbelt && settings.seatbeltalarm){
+    //   alarm.play();
+    // }else {
+    //   alarm.pause();
+    // }
+
 
   }, [vehicle.show,settings.seatbeltalarm])
   
@@ -134,7 +140,7 @@ console.log()
         <img className="fas fa-gas-pump" src={fuelicon} />
 
         <div className="speedometer-center">
-          <div className="speed-unit">{settings.speedunit}</div>
+          <div className="speed-unit">{settings.mphkmh ? 'MPH' : 'KMH'}</div>
 
           <div className="speed">
             {vehicle.speed < 10 ? (

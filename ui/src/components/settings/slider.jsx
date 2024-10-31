@@ -18,7 +18,7 @@ const Sliders = (data) => {
       <div className='option'>
         <div>{data.title}</div>
         <div style={{width: '10vw'}} className='range-container'>
-        <div>{input}</div>
+        <div>{input * 50}</div>
         <div className="slider">
         <img onClick={() => setinput(data.value)} className="fas" src={reseticon} alt="" />
        <RangeSlider className="single-thumb" value={[0,input]}   id="slider" onInput={() => handleinput(event,data.name)}    defaultValue={[0, data.value]}    rangeSlideDisabled={true}     thumbsDisabled={[true, false]} />

@@ -6,26 +6,22 @@ import Compass from "./Compass";
 import Settings from "./settings/settings";
 import { NuiEvent } from "../hooks/NuiEvent";
 
-
-               
 const Hud = () => {
-  const [visible, setVisible] = useState(true);
-
+  const [visible, setVisible] = useState(false);
 
   const handlevisible = (data) => {
     setVisible(data);
-  }
-  NuiEvent("visible", handlevisible)
-
+  };
+  NuiEvent("visible", handlevisible);
 
   return (
     <>
-    <Fade in={visible}>
-    <Speedometer/>
-    <Minimap />
-    <Compass/>
-    </Fade>
-    <Settings/>
+      <Fade in={visible}>
+        <Speedometer />
+        <Minimap />
+        <Compass />
+      </Fade>
+      <Settings />
     </>
   );
 };
