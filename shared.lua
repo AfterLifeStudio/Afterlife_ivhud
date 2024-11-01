@@ -95,14 +95,14 @@ Config.settings = {
         label = 'Minimap Size',
         description = "Random",
         show = true,
-        value = 10,
+        value = 1.0,
         type = 'slider',
         category = 'minimap'
     },
     ['showspeedometer'] = {
         name = 'showspeedometer',
         label = 'Toggle Speedometer',
-        description = "Random",
+        description = "This options is for you to decided if you want to enable or disable the speedometer of the hud",
         show = true,
         value = true,
         type = 'button',
@@ -113,7 +113,7 @@ Config.settings = {
         label = 'Speedometer Scale',
         description = "Random",
         show = true,
-        value = 10,
+        value = 1.0,
         type = 'slider',
         category = 'speedometer'
     },
@@ -123,8 +123,8 @@ Config.settings = {
         description = "Random",
         show = true,
         value = true,
-        option1 = 'KMH',
-        option2 = 'MPH',
+        option1 = 'MPH',
+        option2 = 'KMH',
         type = 'select',
         category = 'speedometer'
     },
@@ -133,7 +133,7 @@ Config.settings = {
         label = 'Compass Scale',
         description = "Random",
         show = true,
-        value = 10,
+        value = 1.0,
         type = 'slider',
         category = 'speedometer'
     },

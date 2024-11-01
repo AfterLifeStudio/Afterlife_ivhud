@@ -23,7 +23,7 @@ const Settings = () => {
   const handlesettings = (data) => {
     setVisible(data.visible);
     dispatch(update(data.settings))
- 
+    setSettingsData(data.configsettings)
   };
 
   NuiEvent("settings", handlesettings);
@@ -32,7 +32,9 @@ const Settings = () => {
     setDescription(value)
   }
 
+
   useEffect(() => {
+
     const handlekey = (e) => {
       if (visible) {
         if (e.code == "Escape") {
@@ -50,6 +52,38 @@ const Settings = () => {
     return () => window.removeEventListener("keydown", handlekey);
   });
 
+  let optionscomponent = [];
+  
+  for (var i in SettingsData) {
+    let data = SettingsData[i];
+    if (catagorystate == data.category) {
+      optionscomponent.push(
+        <>
+          {data.type == "select" ? (
+            <div onMouseOver={() => handlehover(data.description)}>
+              <Select
+                title={data.label}
+                name={data.name}
+                value={data.value}
+                option1={data.option1}
+                option2={data.option2}
+              />
+            </div>
+          ) : data.type == "button" ? (
+            <div onMouseOver={() => handlehover(data.description)}>
+              <Button title={data.label} name={data.name} value={data.value} />
+            </div>
+          ) : (
+            <div onMouseOver={() => handlehover(data.description)}>
+              <Sliders title={data.label} name={data.name} value={data.value} />
+            </div>
+          )}
+        </>
+      );
+    }
+  }
+
+
   const catagories = ["general", "minimap", "speedometer", "info"];
 
   return (
@@ -66,7 +100,7 @@ const Settings = () => {
                 <div
                   onClick={() => setCatagory(catagory)}
                   style={{
-                    color: catagory == catagorystate ? "#88cfcd" : "white",
+                    color: catagory == catagorystate ? "#88cfcd" : "rgba(266,266,266,0.7)",
                   }}
                   className="settings-catagory"
                 >
@@ -75,30 +109,18 @@ const Settings = () => {
               ))}
             </div>
 
+            <div className="horizontalline"></div>
+
             <div className="settings">
               <div className="settings-options">
-                {SettingsData.map((data) => (
-                  catagorystate == data.category &&
-                  <>
-                  {data.type == 'select'?
-                  <div onMouseOver={() => handlehover(data.description)}>
-                  <Select title={data.label} name={data.name} value={data.value} option1={data.option1} option2={data.option2} />
-                  </div>
-                  :data.type == 'button'?
-                  <div onMouseOver={() => handlehover(data.description)}>
-                  <Button title={data.label} name={data.name} value={data.value} />
-                  </div>
-                  : <div onMouseOver={() => handlehover(data.description)}>
-                  <Sliders title={data.label} name={data.name} value={data.value} />
-                  </div> 
-                  }
-                  </>
-                ))}
+                {optionscomponent}
               </div>
               <div className="instructions">
-                {description}
+                <span className="i">i</span> .{description}
               </div>
             </div>
+
+            {/* <div className="horizontalline"></div> */}
 
             <div className="settings-keys-container">
             <div className="settings-keys">

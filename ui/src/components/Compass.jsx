@@ -4,31 +4,43 @@ import { useSelector } from "react-redux";
 import Fade from "../utils/fade";
 
 const Compass = () => {
+  const [compassvisible,SetCompassVisible] = useState(false)
   const [compass, setCompass] = useState({
-    show: true,
     heading: 0,
     location1: 'Los Santos',
     location2: 'Legion Square'
   });
 
+const settings = useSelector((state) => state.settings)
+const visible = settings.showcompass ? compassvisible : false 
+
 
 useEffect(() => {
-  const element = document.getElementById("compass");
-  let scroll = -((2133 / (-360)) * compass.heading)
-  element.scrollLeft = scroll;
-})
+  if (visible) {
+    const element = document.getElementById("compass");
+    let scroll = -((2133 / -360) * compass.heading);
+    element.scrollLeft = scroll;
+  }
+});
+
+const handlevisible = (state) =>{
+  SetCompassVisible(state)
+}
 
 const handlecompass = (data) => {
   setCompass(data);
 };
 
-const settings = useSelector((state) => state.settings)
-
 NuiEvent("compass", handlecompass);
+NuiEvent("compassvisible", handlevisible);
+
+
+
+
 
   return (
     <>
-    <Fade in={settings.showcompass}>
+    <Fade in={visible}>
   <div className="compass-container">
     <div id="compass" className="compass">
 

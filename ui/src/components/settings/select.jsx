@@ -18,7 +18,7 @@ const Select = (data) => {
     <>
       <div className='option'>
         <div>{data.title}</div>
-        <div className='select-value'>
+        <div style={{color: '#88cfcd'}}  className='select-value'>
           <div
             onClick={() => handleinput(true,data.name)}
             style={{ opacity: input == true ? "100%" : "50%" }}
