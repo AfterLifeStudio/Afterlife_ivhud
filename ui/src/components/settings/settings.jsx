@@ -13,7 +13,7 @@ import { settingsdata } from "./settingsdata";
 
 const Settings = () => {
   const [catagorystate, setCatagory] = useState("general");
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [description, setDescription] = useState("")
   const [SettingsData, setSettingsData] = useState(settingsdata)
 
