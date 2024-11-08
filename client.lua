@@ -38,7 +38,7 @@ CreateThread(function()
         voice = NetworkIsPlayerTalking(cache.playerId)
         local data = {
             health = health - 100,
-            skull = false,
+            skull = cache.vehicle and false or true,
             armour = armour,
             oxygen = oxygen,
             hunger = hunger,

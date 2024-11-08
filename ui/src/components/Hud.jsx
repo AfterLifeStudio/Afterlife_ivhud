@@ -6,7 +6,7 @@ import Compass from "./Compass";
 import Settings from "./settings/settings";
 import { NuiEvent } from "../hooks/NuiEvent";
 import { useSelector } from "react-redux";
-
+import Info from "./Info";
 const Hud = () => {
   const [visible, setVisible] = useState(false);
 
@@ -21,6 +21,7 @@ const Hud = () => {
   return (
     <>
       <Fade in={visible}>
+        <Info />
         <Speedometer />
         <Minimap />
         <Compass />

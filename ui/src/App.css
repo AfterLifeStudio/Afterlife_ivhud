@@ -5,12 +5,17 @@
   --maincolor: #88cfcd;
   --width: 13vw;
   --height: 13vw;
-
+  transition: 600ms ease;
   user-select: none;
 }
 
 :root {
   --voiceval: #88cfcd;
+}
+
+@font-face {
+  font-family: pricedown;
+  src: url(./assets/font/pricedown.otf);
 }
 
 /* 
@@ -25,7 +30,7 @@ body {
 .Minimap {
   transform: scale(1.0);
   position: absolute;
-  bottom: 0.9vw;
+  bottom: 0.7vw;
 }
 
 .minimap-dead {
@@ -200,6 +205,61 @@ body {
     transform: scale(6);
     opacity: 0;
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.info-container {
+  position: absolute;
+  top: 20%;
+  right: 1vw;
+  font-size: 1.4vw;
+  font-family: 'pricedown';
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  color: rgba(255, 255, 255, 0.805);
+  -webkit-text-stroke: 0.04vw rgba(0, 0, 0, 0.658);
+  letter-spacing: 0.06vw;
+}
+
+
+
+.bank {
+  align-items: center;
+  display: flex;
+  font-size: 1.6vw !important;
+}
+
+
+.cash {
+  position: relative;
+  bottom: 0.4vw;
+  align-items: center;
+  display: flex;
+  font-size: 1.3vw !important;
+  color: rgba(163, 163, 163, 0.925);
+}
+
+.diffammount {
+  animation-name: fadeout;
+  animation-duration: 4s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 
@@ -486,12 +546,6 @@ position: absolute;
   position: absolute;
   left: 50%;
   top: 2vw;
-
-  transform: translate(-50%,0%);
-
-
-
-
   display: flex;
   flex-direction: column;
   align-items: center;

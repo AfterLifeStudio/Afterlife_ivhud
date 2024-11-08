@@ -53,7 +53,7 @@ CreateThread(function()
     while true do
         local sleep = 1000
         if vehicle then
-            sleep = 10
+            sleep = 100
             local ped = cache.ped
             local coords = GetEntityCoords(ped)
             local street1, street2 = GetStreetNameAtCoord(coords.x, coords.y, coords.z)

@@ -41,7 +41,7 @@ NuiEvent("compassvisible", handlevisible);
   return (
     <>
     <Fade in={visible}>
-  <div style={transform: `scale(${settings.compassize / 50})`} className="compass-container">
+  <div style={{transform: `translate(-50%,0%) scale(${settings.compassize / 50})`}} className="compass-container">
     <div id="compass" className="compass">
 
       <div className="compassvalues">
