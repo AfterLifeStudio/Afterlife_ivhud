@@ -81,6 +81,15 @@ Config.settings = {
         type = 'button',
         category = 'minimap'
     },
+    ['minimapextrastatus'] = {
+        name = 'minimapextrastatus',
+        label = 'Toggle Minimap Status',
+        description = "This option is for you to decide if you want to enable or disable the minimap extra status for example hunger thirst stress etc",
+        show = true,
+        value = true,
+        type = 'button',
+        category = 'minimap'
+    },
     ['skullonfoot'] = {
         name = 'skullonfoot',
         label = 'Skull on foot',
@@ -95,14 +104,14 @@ Config.settings = {
         label = 'Minimap Size',
         description = "Random",
         show = true,
-        value = 1.0,
+        value = 50,
         type = 'slider',
         category = 'minimap'
     },
     ['showspeedometer'] = {
         name = 'showspeedometer',
         label = 'Toggle Speedometer',
-        description = "This options is for you to decided if you want to enable or disable the speedometer of the hud",
+        description = "This options is for you to decide if you want to enable or disable the speedometer of the hud",
         show = true,
         value = true,
         type = 'button',
@@ -113,7 +122,7 @@ Config.settings = {
         label = 'Speedometer Scale',
         description = "Random",
         show = true,
-        value = 1.0,
+        value = 50,
         type = 'slider',
         category = 'speedometer'
     },
@@ -133,7 +142,7 @@ Config.settings = {
         label = 'Compass Scale',
         description = "Random",
         show = true,
-        value = 1.0,
+        value = 50,
         type = 'slider',
         category = 'speedometer'
     },

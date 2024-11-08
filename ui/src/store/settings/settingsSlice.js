@@ -4,6 +4,7 @@ const initialState = {
   showminimap: true,
   showinfo: true,
   minimapsize: 1.0,
+  minimapextrastatus: false,
   speedometersize: 1.0,
   dynamicinfo: true,
   seatbeltalarm: true,

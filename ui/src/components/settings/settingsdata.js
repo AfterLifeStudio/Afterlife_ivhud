@@ -44,6 +44,15 @@ export const settingsdata = {
     type: "button",
     category: "minimap",
   },
+  minimapextrastatus: {
+    name: 'minimapextrastatus',
+    label: 'Toggle Minimap Status',
+    description: "This option is for you to decide if you want to enable or disable the minimap extra status for example hunger thirst stress etc",
+    show: true,
+    value: true,
+    type: 'button',
+    category: 'minimap'
+},
   minimapsize: {
     name: "minimapsize",
     label: "Minimap Size",

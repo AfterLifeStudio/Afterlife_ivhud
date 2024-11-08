@@ -28,6 +28,8 @@ const Minimap = () => {
     hunger: 50,
     thirst: 50,
     stress: 50,
+    voice: true,
+    voicemode: 1,
   });
 
   const handlestatus = (data) => {
@@ -36,19 +38,41 @@ const Minimap = () => {
 
   NuiEvent("status", handlestatus);
 
+
+  const handlevoicemode = (data) => {
+    let r = document.querySelector(':root');
+
+    if (data == 1) {
+      r.style.setProperty('--voiceval', '#dec56f');
+    }
+    if (data == 2) {
+      r.style.setProperty('--voiceval', '#88cfcd');
+    }
+    if (data == 3) {
+      r.style.setProperty('--voiceval', '#e07569');
+    }
+  }
+
+  NuiEvent("voicemode", handlevoicemode);
+
   const settings = useSelector((state) => state.settings)
+
+
 
   return (
     <>
-    <Fade in={settings.showminimap}></Fade>
-      <div style={settings.fliphud ? {left: '1.2vw'} : {right: '1.2vw'}} className="Minimap">
+    <Fade in={settings.showminimap}>
+      <div style={settings.fliphud ? {left: '1.2vw', transform: `scale(${settings.minimapsize / 50})`} : {right: '1.2vw', transform: `scale(${settings.minimapsize / 50})`}} className="Minimap">
         <img className="outline" src={outline} alt="" />
         <Fade in={settings.skullonfoot ? status.skull : false}>
           <img className="minimap-dead" src={minimapdead} alt="" />
         </Fade>
-        <img className="status-outline" src={statusoutline} alt="" />
+
         <img style={{clipPath: `polygon(0 ${100 - status.health}%, 100% ${100 - status.health}%, 100% 100%, 0% 100%)`}} className="health" src={health} alt="" />
         <img style={{clipPath: `polygon(0 ${100 - status.armour}%, 100% ${100 - status.armour}%, 100% 100%, 0% 100%)`}} className="armour" src={armour} alt="" />
+        {settings.minimapextrastatus &&
+        <>
+        <img className="status-outline" src={statusoutline} alt="" />
         <img style={{clipPath: `polygon(0 ${100 - status.hunger}%, 100% ${100 - status.hunger}%, 100% 100%, 0% 100%)`}} className="hunger" src={hunger} alt="" />
         <img style={{clipPath: `polygon(0 ${100 - status.thirst}%, 100% ${100 - status.thirst}%, 100% 100%, 0% 100%)`}} className="thirst" src={thirst} alt="" />
         <img style={{clipPath: `polygon(0 ${100 - status.stress}%, 100% ${100 - status.stress}%, 100% 100%, 0% 100%)`}} className="stress" src={stress} alt="" />
@@ -57,9 +81,16 @@ const Minimap = () => {
         <img className="fas icon-thirst" src={droplet} alt="" />
         <img className="fas icon-hunger" src={burger} alt="" />
         <img className="fas icon-oxygen" src={lungs} alt="" />
-        <div className="circle"></div>
-        <img className="fa-microphone" src={mic} alt="" />
+        </>
+        }
+        {status.voice &&
+        <div style={settings.fliphud ? {right: '0.95vw'} : {left: '0.95vw'}} className="circle"></div>
+      }
+        <img style={settings.fliphud ? {right: '0vw'} : {left: '0vw'}} className="fa-microphone" src={mic} alt="" />
+ 
+
       </div>
+      </Fade>
     </>
   );
 };

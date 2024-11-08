@@ -9,9 +9,9 @@ const Select = (data) => {
 
   const [input, setinput] = useState(data.value);
 
-  const handleinput = (input,option) => {
-    setinput(input)
-    nuicallback("settings",{option,input})
+  const handleinput = (state,option) => {
+    setinput(state)
+    nuicallback("settings",{option: option,value: state})
   };
 
   return (

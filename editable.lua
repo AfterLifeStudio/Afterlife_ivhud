@@ -181,65 +181,14 @@ StreamMinimap = function()
     Wait(0)
     SetRadarBigmapEnabled(false, false)
 
+    return true
+
 end
 
 
 
 
 
-
-RegisterCommand('resetminimap', function()
-    streamminmap()
-end)
-
-
-RegisterCommand('cash', function()
-    if GlobalSettings.dynamicinfo then
-        SendNUIMessage({
-            type = 'showcash'
-        })
-    end
-end)
-
-RegisterCommand('bank', function()
-    if GlobalSettings.dynamicinfo then
-        SendNUIMessage({
-            type = 'showbank'
-        })
-    end
-end)
-
-RegisterCommand('job', function()
-    if GlobalSettings.dynamicinfo then
-        SendNUIMessage({
-            type = 'showjob'
-        })
-    end
-end)
-
-
-
-
-
-lib.addKeybind({
-    name = 'hud-settings',
-    description = 'Open Hud Settings',
-    defaultKey = Config.settingskey,
-    onPressed = function(self)
-        opensettingsmenu()
-    end,
-})
-
-
--- local radarloop 
-
-
--- hideradarloop = function ()
---     while radarloop do
---         HideHudAndRadarThisFrame()
---         Wait(0)
---     end
--- end
 
 
 

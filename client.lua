@@ -1,4 +1,4 @@
-local voice, voicemode
+local voice
 
 posX = nil
 posY = nil
@@ -35,6 +35,7 @@ CreateThread(function()
             oxygen = GetPlayerUnderwaterTimeRemaining(cache.playerId) * 10
         end
 
+        voice = NetworkIsPlayerTalking(cache.playerId)
         local data = {
             health = health - 100,
             skull = false,
@@ -44,21 +45,15 @@ CreateThread(function()
             thirst = thirst,
             stress = stress,
             voice = voice,
-            voicemode = voicemode,
         }
         NuiMessage('status', data)
         Wait(1200)
     end
 end)
 
-CreateThread(function()
-    while true do
-        voice = NetworkIsPlayerTalking(cache.playerId)
-        Wait(200)
-    end
-end)
+
 
 
 AddEventHandler('pma-voice:setTalkingMode', function(mode)
-    voicemode = mode
+    NuiMessage('voicemode', mode)
 end)

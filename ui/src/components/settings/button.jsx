@@ -9,7 +9,7 @@ const Button = (data) => {
   const handleinput = (option) => {
     let value = !input
     setinput(value)
-    nuicallback("settings",{option,value})
+    nuicallback("settings",{option: option,value: value})
   };
 
   return (

@@ -8,13 +8,18 @@
 
   user-select: none;
 }
+
+:root {
+  --voiceval: #88cfcd;
+}
+
 /* 
 body {
   background-image: url('https://sm.ign.com/ign_in/screenshot/default/gta-5-mods-2_ubuh.jpg');
   background-size: cover;
   height: 100%;
-} */
-
+}
+ */
 
 
 .Minimap {
@@ -150,7 +155,7 @@ body {
 
 
 .circle {
-  display: none;
+  display: flex;
   height: .4vw;
   width: .4vw;
   border-radius: 50%;
@@ -301,8 +306,9 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;
+  justify-content: start;
   align-items: center;
-  justify-content: center;
+  height: 7vw;
 }
 
 .speed-outline{
@@ -739,6 +745,7 @@ mask: var(--mask);
 }
 
 ::-webkit-scrollbar {
+  display: none;
   width: 0.1vw;
 }
 
@@ -802,4 +809,23 @@ mask: var(--mask);
   width: 100%;
   height: 0.1vw;
   background-color: rgba(255,255,255,0.7);
+}
+
+
+.transition-fade-enter {
+  opacity: 0;
+}
+
+.transition-fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.transition-fade-exit {
+  opacity: 1;
+}
+
+.transition-fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
 }

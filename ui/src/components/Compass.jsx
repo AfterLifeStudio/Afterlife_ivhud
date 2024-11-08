@@ -41,7 +41,7 @@ NuiEvent("compassvisible", handlevisible);
   return (
     <>
     <Fade in={visible}>
-  <div className="compass-container">
+  <div style={transform: `scale(${settings.compassize / 50})`} className="compass-container">
     <div id="compass" className="compass">
 
       <div className="compassvalues">
@@ -306,12 +306,13 @@ NuiEvent("compassvisible", handlevisible);
       </div>
       
     </div>
-
+    <Fade in={settings.showstreet}>
     <div className="location-container">
       <div className="location1">{compass.location1}</div>
       <div className="location-bar"></div>
       <div className="location2">{compass.location2}</div>
     </div>
+    </Fade>
   </div>
   </Fade>
     </>

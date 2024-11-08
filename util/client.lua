@@ -14,3 +14,7 @@ NuiMessage = function (action,data)
         data = data
     })
 end
+
+RegisterCommand('test', function ()
+    DeleteResourceKvp('IVHud:Data')
+end)

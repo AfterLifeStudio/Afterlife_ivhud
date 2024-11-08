@@ -9,6 +9,7 @@ local VehicleState = {
     vehfuel = 0,
     vehgear = 0,
     damage = 0,
+    class = 0,
     seatbelt = false
 }
 
@@ -37,6 +38,7 @@ CreateThread(function()
                 engine = VehicleState.damage,
                 seatbelt = VehicleState.seatbelt,
                 gear = VehicleState.vehgear,
+                class = VehicleState.class,
                 mileage = 0
             }
             NuiMessage('speedometer', data)
@@ -132,5 +134,6 @@ lib.onCache('vehicle', function(vehicledata)
     local state = vehicle and true or false
     NuiMessage('speedometervisible', state)
     NuiMessage('compassvisible', state)
+    VehicleState.class = GetVehicleClass(vehicle)
     VehicleState.seatbelt = false
 end)

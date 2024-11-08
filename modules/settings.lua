@@ -32,7 +32,6 @@ LoadHud = function ()
     if data then
         local data = json.decode(data)
         for k,v in pairs(data) do
-
             GlobalSettings[k] = v
             Config.settings[k].value = v
         end
@@ -63,8 +62,8 @@ RegisterNUICallback('exitsettings', function (data, cb)
 end)
 
 RegisterNUICallback('settings', function (data, cb)
-
-    Config.settings[data.option].value =  data.input
+print(data.option,data.value)
+    Config.settings[data.option].value =  data.value
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
     NuiMessage('settings',{visible = true,settings = GlobalSettings,configsettings = Config.settings})
     cb{{}}
@@ -81,6 +80,10 @@ RegisterNUICallback('settingsconfirm', function (data, cb)
 
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
     SetNuiFocus(false,false)
+
+    StreamMinimap()
+    DisplayHud(GlobalSettings.showhud)
+
     NuiMessage('settings',{visible = false,settings = GlobalSettings,configsettings = Config.settings})
 
     cb{{}}
@@ -103,5 +106,27 @@ RegisterNUICallback('settingsreset', function (data, cb)
 
     cb{{}}
 end)
+
+
+
+
+lib.addKeybind({
+    name = 'hud-settings',
+    description = 'Open Hud Settings',
+    defaultKey = Config.settingskey,
+    onPressed = opensettingsmenu
+})
+
+
+-- local radarloop 
+
+-- local hideradarloop = function ()
+--     while radarloop do
+--         HideHudAndRadarThisFrame()
+--         Wait(0)
+--     end
+-- end
+
+
 
     
