@@ -34,10 +34,12 @@ files {
     'ui/dist/index.html',
 	'ui/dist/assets/*.js',
     'ui/dist/assets/*.css',
-    'ui/dist/assets/*.png'
+    'ui/dist/assets/*.png',
+    'ui/dist/assets/*.otf',
+    'ui/dist/assets/*.mp3',
 }
 
 exports {
-    'ShowHud'
+    'ShowHud',
 }
 

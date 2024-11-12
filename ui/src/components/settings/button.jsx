@@ -17,7 +17,7 @@ const Button = (data) => {
       <div className='option'>
         <div>{data.title}</div>
         <div className='select-value'>
-          <div className="option-button-text">{input ? 'on' : 'off'}</div>
+          <div className="option-button-text" style={{opacity: input ? '100%' : '70%'}}>{input ? 'on' : 'off'}</div>
           <div style={{justifyContent: input ? 'end' : 'start'}} onClick={() => handleinput(data.name)} className='option-button'>
             <div style={{opacity: input ? '100%' : '50%'}}></div>
           </div>

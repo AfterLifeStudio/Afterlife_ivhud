@@ -14,6 +14,10 @@ zoney = 0.16
 zonexpos = 0.16
 zoneypos = 0
 
+hunger = 100
+thirst = 100
+stress = 0
+
 
 
 ---@param state boolean;
@@ -56,4 +60,12 @@ end)
 
 AddEventHandler('pma-voice:setTalkingMode', function(mode)
     NuiMessage('voicemode', mode)
+end)
+
+
+CreateThread( function ()
+    SetHudComponentSize(6, 0, 0)
+    SetHudComponentSize(7, 0, 0)
+    SetHudComponentSize(8, 0, 0)
+    SetHudComponentSize(9, 0, 0)
 end)

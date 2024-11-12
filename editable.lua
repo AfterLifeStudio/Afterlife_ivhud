@@ -1,7 +1,7 @@
 PlayerLoaded = false
-hunger = 100
-thirst = 100
-stress = 0
+
+
+local Active = false
 
 currentaspectratio, _aspectratio, screenx, screeny, _screenx, _screeny = 0, 0, 0, 0, 0, 0
 aspectratio = 0
@@ -190,5 +190,17 @@ end
 
 
 
+CreateThread(function()
+    while true do
+        local PauseMenuActive = IsPauseMenuActive()
 
-
+        if PauseMenuActive and not Active then
+            Active = true
+            NuiMessage('visible', false)
+        elseif Active and PauseMenuActive then
+            Active = false
+            NuiMessage('visible', true)
+        end
+        Wait(1000)
+    end
+end)

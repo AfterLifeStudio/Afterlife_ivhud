@@ -3,6 +3,7 @@ job = ''
 grade = ''
 
 
+
 CreateThread(function()
     while true do
             local playerjob = job .. ' - ' .. grade

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
+    "animated-number-react": "^0.1.2",
     "react": "^18.3.1",
     "react-animated-numbers": "^0.18.0",
     "react-dom": "^18.3.1",

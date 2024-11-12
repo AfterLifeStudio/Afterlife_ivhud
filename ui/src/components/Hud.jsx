@@ -8,7 +8,7 @@ import { NuiEvent } from "../hooks/NuiEvent";
 import { useSelector } from "react-redux";
 import Info from "./Info";
 const Hud = () => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   const settings = useSelector((state) => state.settings)
   const handlevisible = (data) => {
@@ -16,15 +16,24 @@ const Hud = () => {
   };
   NuiEvent("visible", handlevisible);
 
-
-
+  const show = settings.showhud ? visible : false
   return (
     <>
-      <Fade in={visible}>
-        <Info />
-        <Speedometer />
-        <Minimap />
-        <Compass />
+    
+      <Fade in={show}>
+        {settings.cinematicmode ? (
+          <div className="cinemticbars">
+            <div></div>
+            <div></div>
+          </div>
+        ) : (
+          <>
+            <Info />
+            <Speedometer />
+            <Minimap />
+            <Compass />
+          </>
+        )}
       </Fade>
       <Settings />
     </>

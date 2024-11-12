@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   showminimap: true,
   showinfo: true,
-  minimapsize: 1.0,
+  minimapsize: 50,
   minimapextrastatus: false,
-  speedometersize: 1.0,
+  speedometersize: 50,
   dynamicinfo: true,
   seatbeltalarm: true,
   showstreet: true,
@@ -15,7 +15,7 @@ const initialState = {
   mphkmh: false,
   skullonfoot: false,
   showspeedometer: true,
-  compassize: 1.0,
+  compassize: 50,
   fliphud: false,
 };
 

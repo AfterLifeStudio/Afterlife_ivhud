@@ -13,13 +13,9 @@ local VehicleState = {
     seatbelt = false
 }
 
-
-CreateThread(function()
-    while true do
-        local sleep = 1000
-
-        if vehicle then
-            sleep = Config.speedometerspeed
+local speedometer = function()
+    CreateThread(function()
+        while vehicle do
             if GlobalSettings.mphkmh then
                 VehicleState.vehspeed = math.ceil(GetEntitySpeed(vehicle) * 2.236936)
             else
@@ -29,9 +25,16 @@ CreateThread(function()
             VehicleState.vehfuel = GetFuel(vehicle)
             VehicleState.vehgear = GetVehicleCurrentGear(vehicle)
             VehicleState.damage = GetVehicleDamage(vehicle)
+            local distance = 0
+
+            pcall(function()
+                local plate = string.gsub(GetVehicleNumberPlateText(vehicle), "^%s*(.-)%s*$", "%1")
+                distance = GetVehicleMileage(plate)
+            end)
 
 
             local data = {
+                show = true,
                 rpm = VehicleState.vehrpm,
                 speed = VehicleState.vehspeed,
                 fuel = VehicleState.vehfuel,
@@ -39,26 +42,40 @@ CreateThread(function()
                 seatbelt = VehicleState.seatbelt,
                 gear = VehicleState.vehgear,
                 class = VehicleState.class,
-                mileage = 0
+                mileagec = Config.mileage, 
+                mileage = distance
             }
             NuiMessage('speedometer', data)
+            Wait(Config.speedometerspeed)
         end
-        Wait(sleep)
-    end
-end)
+    end)
+end
 
-
+local prevloc1,prevloc2 = '',''
 
 CreateThread(function()
     while true do
         local sleep = 1000
         if vehicle then
-            sleep = 100
+            sleep = Config.compassspeed
             local ped = cache.ped
             local coords = GetEntityCoords(ped)
             local street1, street2 = GetStreetNameAtCoord(coords.x, coords.y, coords.z)
             local location2 = GetStreetNameFromHashKey(street2)
             local location1 = GetStreetNameFromHashKey(street1)
+
+            if location1 == '' then
+                location1 = prevloc1
+            else
+                prevloc1 = location1
+            end
+
+            
+            if location2 == '' then
+                location2 = prevloc2
+            else
+                prevloc2 = location2
+            end
 
             local dgr = -(GetGameplayCamRot(0).z - 180)
 
@@ -78,17 +95,17 @@ end)
 
 
 
-CreateThread(function()
-    while true do
-        local sleep = 1000
-        if VehicleState.seatbelt then
-            sleep = 0
-            DisableControlAction(0, 75, true)
-            DisableControlAction(27, 75, true)
-        end
-        Wait(sleep)
-    end
-end)
+-- CreateThread(function()
+--     while true do
+--         local sleep = 1000
+--         if VehicleState.seatbelt then
+--             sleep = 0
+--             DisableControlAction(0, 75, true)
+--             DisableControlAction(27, 75, true)
+--         end
+--         Wait(sleep)
+--     end
+-- end)
 
 
 
@@ -132,8 +149,17 @@ lib.addKeybind({
 lib.onCache('vehicle', function(vehicledata)
     vehicle = vehicledata
     local state = vehicle and true or false
+    if state then
+        speedometer()
+    end
     NuiMessage('speedometervisible', state)
     NuiMessage('compassvisible', state)
-    VehicleState.class = GetVehicleClass(vehicle)
     VehicleState.seatbelt = false
+
+    VehicleState.class  = GetVehicleClass(vehicle)
+    print(VehicleState.class)
+    if VehicleState.class == 8 or VehicleState.class == 13 or VehicleState.class == 14 then
+        VehicleState.seatbelt = true
+    end
+
 end)

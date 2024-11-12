@@ -2,7 +2,8 @@ import { React, useState, useEffect } from "react";
 import Fade from "../utils/fade";
 import { NuiEvent } from "../hooks/NuiEvent";
 import { useSelector } from "react-redux";
-import AnimatedNumbers from "react-animated-numbers";
+import AnimatedNumber from "animated-number-react";
+
 
 const Info = () => {
   const [info, setInfo] = useState({
@@ -18,6 +19,13 @@ const Info = () => {
   };
   NuiEvent("info", handleinfo);
 
+  const bank = (data) => {
+
+  }
+
+  const formatValue = (value) => value.toFixed(0);
+  
+
   return (
     <>
       <Fade in={settings.showinfo}>
@@ -25,26 +33,11 @@ const Info = () => {
           <div class="info-container">
             <div class="bank">
               <span>$</span>
-              <AnimatedNumbers
-                transitions={(index) => ({
-                  type: "spring",
-                  duration: index + 0.3,
-                })}
-                animateToNumber={info.bank}
-              />
+              <AnimatedNumber formatValue={formatValue} value={info.bank}/>
             </div>
             <div class="cash">
               <span>$</span>
-              <AnimatedNumbers
-                fontStyle={{
-                  fontSize: "1.2vw",
-                }}
-                transitions={(index) => ({
-                  type: "spring",
-                  duration: index + 0.3,
-                })}
-                animateToNumber={info.cash}
-              />
+              <AnimatedNumber formatValue={formatValue} value={info.cash}/>
             </div>
             <div class="job">
               <span id="job">{info.job}</span>

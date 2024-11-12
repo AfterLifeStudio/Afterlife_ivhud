@@ -17,6 +17,11 @@ GetVehicleDamage = function (vehicle)
     return damage
 end
 
+GetVehicleMileage = function (plate)
+    local distance, unit = exports["jg-vehiclemileage"]:GetMileage(plate)
+    return distance
+end
+
 GetFramework = function()
     if GetResourceState('es_extended') ~= 'missing' then
         return 'esx'
@@ -40,7 +45,8 @@ Config.maxminimapzone = false
 
 -- you can increase them inorder to increase performance
 Config.speedometerspeed = 50 -- how many millisecond it will delay before updating the speedometer again
-Config.compassspeed = 50     -- how many millisecond it will delay before updating the compass again
+Config.compassspeed = 10     -- how many millisecond it will delay before updating the compass again
+Config.mileage = false
 
 ------- Settings Configuration
 --------DONT CHANGE ANYTHING IF YOU DONT KNOW WHAT YOU ARE DOING
@@ -48,7 +54,7 @@ Config.settings = {
     ['showhud'] = {
         name = 'showhud',
         label = "Toggle Hud",
-        description = "Randoma",
+        description = "This option is for you to decide if you want to enable or disable the hud",
         show = true,
         value = true,
         type = 'button',
@@ -57,7 +63,7 @@ Config.settings = {
     ['cinematicmode'] = {
         name = 'cinematicmode',
         label = 'Cinemtic Mode',
-        description = "Random",
+        description = "This option is for you to decide if you want to enable or disable the cinematic bars and hide the hud",
         show = true,
         value = false,
         type = 'button',
@@ -66,7 +72,7 @@ Config.settings = {
     ['fliphud'] = {
         name = 'fliphud',
         label = 'Flip Hud',
-        description = "Random",
+        description = "This option is for you to decide if you want to replace the position of the minimap and speedometer",
         show = true,
         value = false,
         type = 'button',
@@ -75,7 +81,7 @@ Config.settings = {
     ['showminimap'] = {
         name = 'showminimap',
         label = 'Toggle Minimap',
-        description = "Random",
+        description = "This option is for you to decide if you want to enable or disable the minimap",
         show = true,
         value = true,
         type = 'button',
@@ -93,7 +99,7 @@ Config.settings = {
     ['skullonfoot'] = {
         name = 'skullonfoot',
         label = 'Skull on foot',
-        description = "Random",
+        description = "This option is for you to decide if you want to enable or disable skull on the map when you are outside of the vehicle",
         show = true,
         value = false,
         type = 'button',
@@ -102,7 +108,7 @@ Config.settings = {
     ['minimapsize'] = {
         name = 'minimapsize',
         label = 'Minimap Size',
-        description = "Random",
+        description = "This option is for you to decide if you want to adjust the size of minimap size",
         show = true,
         value = 50,
         type = 'slider',
@@ -120,7 +126,7 @@ Config.settings = {
     ['speedometersize'] = {
         name = 'speedometersize',
         label = 'Speedometer Scale',
-        description = "Random",
+        description = "This option is for you to decide if you want to adjust the size of speedometer size",
         show = true,
         value = 50,
         type = 'slider',
@@ -129,7 +135,7 @@ Config.settings = {
     ['mphkmh'] = {
         name = 'mphkmh',
         label = 'Vehicle Speed Unit',
-        description = "Random",
+        description = "This option is for you to decide if you want to change the speedometer speed unit",
         show = true,
         value = true,
         option1 = 'MPH',
@@ -137,37 +143,37 @@ Config.settings = {
         type = 'select',
         category = 'speedometer'
     },
-    ['compassize'] = {
-        name = 'compassize',
-        label = 'Compass Scale',
-        description = "Random",
-        show = true,
-        value = 50,
-        type = 'slider',
-        category = 'speedometer'
-    },
     ['showcompass'] = {
         name = 'showcompass',
         label = 'Toggle Compass',
-        description = "Random",
+        description = "This options is for you to decide if you want to enable or disable the compass of the hud",
         show = true,
         value = true,
         type = 'button',
-        category = 'speedometer'
+        category = 'compass'
+    },
+    ['compassize'] = {
+        name = 'compassize',
+        label = 'Compass Scale',
+        description = "This option is for you to decide if you want to adjust the size of compasss size",
+        show = true,
+        value = 50,
+        type = 'slider',
+        category = 'compass'
     },
     ['showstreet'] = {
         name = 'showstreet',
         label = 'Toggle Street Names',
-        description = "Random",
+        description = "This options is for you to decide if you want to enable or disable the streetname on the compass",
         show = true,
         value = true,
         type = 'button',
-        category = 'speedometer'
+        category = 'compass'
     },
     ['seatbeltalarm'] = {
         name = 'seatbeltalarm',
         label = 'Toggle Seatbelt Alarm',
-        description = "Random",
+        description = "This options is for you to decide if you want to enable or disable the seatbelt alarm when you are in vehicle and have not buckled the seatbelt",
         show = true,
         value = true,
         type = 'button',
@@ -176,22 +182,12 @@ Config.settings = {
     ['showinfo'] = {
         name = 'showinfo',
         label = 'Toggle Info',
-        description = "Random",
+        description = "This options is for you to decide if you want to enable or disable the player info like Cash Bank and Job",
         show = true,
         value = true,
         type = 'button',
-        category = 'info'
+        category = 'general'
     },
-    ['dynamicinfo'] = {
-        name = 'dynamicinfo',
-        label = 'Dynamic Info',
-        description = "Random",
-        show = true,
-        value = true,
-        type = 'button',
-        category = 'info'
-    }
-
 }
 
 

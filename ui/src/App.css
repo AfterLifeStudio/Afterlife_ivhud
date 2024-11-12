@@ -5,8 +5,12 @@
   --maincolor: #88cfcd;
   --width: 13vw;
   --height: 13vw;
-  transition: 600ms ease;
+
   user-select: none;
+}
+
+img{
+  transition: 600ms ease;
 }
 
 :root {
@@ -18,13 +22,12 @@
   src: url(./assets/font/pricedown.otf);
 }
 
-/* 
+
 body {
-  background-image: url('https://sm.ign.com/ign_in/screenshot/default/gta-5-mods-2_ubuh.jpg');
-  background-size: cover;
+  background-color: black;
   height: 100%;
 }
- */
+
 
 
 .Minimap {
@@ -165,7 +168,7 @@ body {
   width: .4vw;
   border-radius: 50%;
   position: absolute;
-  right: .34vw;
+  right: .6vw;
   bottom: .7vw;
 }
 
@@ -490,12 +493,14 @@ svg circle.circlea {
   stroke-dashoffset: 80%;
   stroke-dasharray: 300%;
   stroke-linecap: round;
+  transition: 600ms ease;
 }
 
 svg circle.outline {
   stroke-dashoffset: 80%;
   stroke-dasharray: 300%;
   stroke-linecap: round;
+  transition: 600ms ease;
 }
 
 
@@ -765,7 +770,6 @@ mask: var(--mask);
 }
 
 .option-button-text{
-  opacity: 70%;
   font-size: 1vw;
   color: var(--maincolor);
 }
@@ -863,6 +867,45 @@ mask: var(--mask);
   width: 100%;
   height: 0.1vw;
   background-color: rgba(255,255,255,0.7);
+}
+
+.verticallline{
+  height: 30vw;
+  width: 0.1vw;
+  background-color: rgba(255,255,255,0.7);
+}
+
+.cinemticbars{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+
+}
+
+.cinemticbars div{
+  background-color: black;
+  width: 100%;
+  animation: cinemticbars forwards;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+}
+
+@keyframes cinemticbars {
+  
+  0%{
+    height: 0;
+  }
+
+  100%{
+    height: 100px;
+  }
+  
 }
 
 

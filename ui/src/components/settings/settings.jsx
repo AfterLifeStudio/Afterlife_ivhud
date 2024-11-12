@@ -39,10 +39,16 @@ const Settings = () => {
       if (visible) {
         if (e.code == "Escape") {
           setVisible(false);
+          setSettingsData([]); 
+          setCatagory("general")
           nuicallback("exitsettings", SettingsData);
         } else if (e.code == "Enter") {
+          setSettingsData([]); 
+          setCatagory("general")
           nuicallback("settingsconfirm")
         } else if (e.code == "Backspace") {
+          setSettingsData([]); 
+          setCatagory("general")
           nuicallback("settingsreset")
         }
       }
@@ -84,7 +90,7 @@ const Settings = () => {
   }
 
 
-  const catagories = ["general", "minimap", "speedometer", "info"];
+  const catagories = ["general", "minimap", "speedometer", "compass"];
 
   return (
     <>
@@ -98,7 +104,10 @@ const Settings = () => {
             <div className="settings-catagories">
               {catagories.map((catagory) => (
                 <div
-                  onClick={() => setCatagory(catagory)}
+                  onClick={() => {
+                    setCatagory(catagory)
+                    nuicallback('clicksound')
+                  }}
                   style={{
                     color: catagory == catagorystate ? "#88cfcd" : "rgba(266,266,266,0.7)",
                   }}
@@ -115,6 +124,7 @@ const Settings = () => {
               <div className="settings-options">
                 {optionscomponent}
               </div>
+              <div className="verticallline"></div>
               <div className="instructions">
                 <span className="i">i</span> .{description}
               </div>

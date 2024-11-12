@@ -1,4 +1,7 @@
 
+
+local radarloop
+
 ---@class defaultsettings 
 local defaultsettings = {}
 
@@ -12,13 +15,6 @@ end
 GlobalSettings = {}
 
 
-
-function opensettingsmenu()
-    SetNuiFocus(true,true)
-
-    PlaySoundFromEntity(-1, "FocusIn", cache.ped, "HintCamSounds", 0, 0)
-    NuiMessage('settings',{visible = true,settings = GlobalSettings,configsettings = Config.settings})
-end
 
 
 
@@ -46,7 +42,9 @@ LoadHud = function ()
     return response
 end
 
-
+RegisterCommand('removehudcache', function ()
+    DeleteResourceKvp('IVHud:Data')
+end)
 
 
 
@@ -56,13 +54,22 @@ RegisterNUICallback('exitsettings', function (data, cb)
         Config.settings[i].value = GlobalSettings[Config.settings[i].name]
     end
 
+    NuiMessage('visible', true)
+    radarloop = false
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
     SetNuiFocus(false,false)
     cb{{}}
 end)
 
+
+RegisterNUICallback('clicksound', function (data, cb)
+    PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
+    cb{{}}
+end)
+
+
+
 RegisterNUICallback('settings', function (data, cb)
-print(data.option,data.value)
     Config.settings[data.option].value =  data.value
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
     NuiMessage('settings',{visible = true,settings = GlobalSettings,configsettings = Config.settings})
@@ -80,7 +87,7 @@ RegisterNUICallback('settingsconfirm', function (data, cb)
 
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
     SetNuiFocus(false,false)
-
+    radarloop = false
     StreamMinimap()
     DisplayHud(GlobalSettings.showhud)
 
@@ -99,7 +106,7 @@ RegisterNUICallback('settingsreset', function (data, cb)
     end
 
     SetResourceKvp('IVHud:Data', json.encode(defaultsettings))
-
+    radarloop = false
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
     SetNuiFocus(false,false)
     NuiMessage('settings',{visible = false,settings = GlobalSettings,configsettings = Config.settings})
@@ -108,25 +115,32 @@ RegisterNUICallback('settingsreset', function (data, cb)
 end)
 
 
+CreateThread(function()
+    while true do
+        local sleep = 500
+        if radarloop or GlobalSettings.cinematicmode then
+            sleep = 0
+            HideHudAndRadarThisFrame()
+        end
+        Wait(sleep)
+    end
+end)
+
+
+Opensettingsmenu = function()
+    radarloop = true
+    SetNuiFocus(true,true)
+    NuiMessage('visible', false)
+    PlaySoundFromEntity(-1, "FocusIn", cache.ped, "HintCamSounds", 0, 0)
+    NuiMessage('settings',{visible = true,settings = GlobalSettings,configsettings = Config.settings})
+end
+
 
 
 lib.addKeybind({
     name = 'hud-settings',
     description = 'Open Hud Settings',
     defaultKey = Config.settingskey,
-    onPressed = opensettingsmenu
+    onPressed = Opensettingsmenu
 })
 
-
--- local radarloop 
-
--- local hideradarloop = function ()
---     while radarloop do
---         HideHudAndRadarThisFrame()
---         Wait(0)
---     end
--- end
-
-
-
-    
