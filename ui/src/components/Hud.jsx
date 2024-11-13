@@ -8,7 +8,7 @@ import { NuiEvent } from "../hooks/NuiEvent";
 import { useSelector } from "react-redux";
 import Info from "./Info";
 const Hud = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   const settings = useSelector((state) => state.settings)
   const handlevisible = (data) => {

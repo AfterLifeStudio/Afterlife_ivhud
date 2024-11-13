@@ -14,17 +14,17 @@ const Speedometer = () => {
 
   const audioelement = useRef();
 
-  const [vehiclevisible, setVehicleVisible] = useState(true);
+  const [vehiclevisible, setVehicleVisible] = useState(false);
 
   const [vehicle, setVehicle] = useState({
     mileagec: false,
-    mileage: 200,
-    class: 8,
+    mileage: 0,
+    class: 0,
     speed: 0,
-    fuel: 70,
-    gear: 2,
-    engine: 40,
-    rpm: 0.9,
+    fuel: 0,
+    gear: 0,
+    engine: 0,
+    rpm: 0,
     seatbelt: true,
   });
 
@@ -53,6 +53,7 @@ const Speedometer = () => {
     vehiclerpm = 300;
   }
 
+  const mileage = Math.floor(vehicle.mileage).toString().padStart(8, "0")
 
   
 
@@ -210,7 +211,9 @@ const Speedometer = () => {
             ) : (
               <>
                 {vehicle.mileagec == true && (
-                  <div className="mileage-container">{vehicle.mileage}</div>
+                  <div className="mileage-container">
+                    <span>{mileage}</span>
+                  </div>
                 )}
                 {!vehicle.seatbelt && (
                   <img className="fas seatbelt" src={seatbelticon} />

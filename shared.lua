@@ -18,8 +18,8 @@ GetVehicleDamage = function (vehicle)
 end
 
 GetVehicleMileage = function (plate)
-    local distance, unit = exports["jg-vehiclemileage"]:GetMileage(plate)
-    return distance
+    local distance, unit = lib.callback.await('jg-vehiclemileage:server:get-mileage',false, plate)
+    return distance.mileage
 end
 
 GetFramework = function()
@@ -46,7 +46,7 @@ Config.maxminimapzone = false
 -- you can increase them inorder to increase performance
 Config.speedometerspeed = 50 -- how many millisecond it will delay before updating the speedometer again
 Config.compassspeed = 10     -- how many millisecond it will delay before updating the compass again
-Config.mileage = false
+Config.mileage = true
 
 ------- Settings Configuration
 --------DONT CHANGE ANYTHING IF YOU DONT KNOW WHAT YOU ARE DOING

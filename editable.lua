@@ -13,7 +13,7 @@ CreateThread(function()
             _screenx, _screeny = GetActiveScreenResolution()
             _aspectratio = GetAspectRatio()
             if (_screenx ~= screenx) or (_screeny ~= screeny) then
-                streamminmap()
+                StreamMinimap()
             end
         end
         Wait(2000)
@@ -180,6 +180,10 @@ StreamMinimap = function()
     SetRadarBigmapEnabled(true, false)
     Wait(0)
     SetRadarBigmapEnabled(false, false)
+
+
+    local minimap = RequestScaleformMovie('minimap')
+    BeginScaleformMovieMethod(minimap, 'HIDE_SATNAV')
 
     return true
 

@@ -62,7 +62,8 @@ const Minimap = () => {
   return (
     <>
     <Fade in={settings.showminimap}>
-      <div style={settings.fliphud ? {left: '1.2vw', transform: `scale(${settings.minimapsize / 50})`} : {right: '1.2vw', transform: `scale(${settings.minimapsize / 50})`}} className="Minimap">
+      <div className="Minimap-container" style={settings.fliphud ? {left: '1.2vw'} : {right: '1.2vw'}} >
+      <div style={{transform: `scale(${settings.minimapsize / 50})`}} className="Minimap">
         <img className="outline" src={outline} alt="" />
         <Fade in={settings.skullonfoot ? status.skull : false}>
           <img className="minimap-dead" src={minimapdead} alt="" />
@@ -89,6 +90,7 @@ const Minimap = () => {
         <img style={settings.fliphud ? {right: '0vw'} : {left: '0vw'}} className="fa-microphone" src={mic} alt="" />
  
 
+      </div>
       </div>
       </Fade>
     </>

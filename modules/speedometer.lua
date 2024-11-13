@@ -10,6 +10,7 @@ local VehicleState = {
     vehgear = 0,
     damage = 0,
     class = 0,
+    mileage = 0,
     seatbelt = false
 }
 
@@ -25,12 +26,7 @@ local speedometer = function()
             VehicleState.vehfuel = GetFuel(vehicle)
             VehicleState.vehgear = GetVehicleCurrentGear(vehicle)
             VehicleState.damage = GetVehicleDamage(vehicle)
-            local distance = 0
 
-            pcall(function()
-                local plate = string.gsub(GetVehicleNumberPlateText(vehicle), "^%s*(.-)%s*$", "%1")
-                distance = GetVehicleMileage(plate)
-            end)
 
 
             local data = {
@@ -43,13 +39,24 @@ local speedometer = function()
                 gear = VehicleState.vehgear,
                 class = VehicleState.class,
                 mileagec = Config.mileage, 
-                mileage = distance
+                mileage = VehicleState.mileage
             }
             NuiMessage('speedometer', data)
             Wait(Config.speedometerspeed)
         end
     end)
 end
+
+
+CreateThread( function ()
+    while true do
+        if cache.vehicle then
+        local plate = string.gsub(GetVehicleNumberPlateText(cache.vehicle), "^%s*(.-)%s*$", "%1")
+        VehicleState.mileage = GetVehicleMileage(plate)
+        end
+        Wait(2000)
+    end
+end)
 
 local prevloc1,prevloc2 = '',''
 
