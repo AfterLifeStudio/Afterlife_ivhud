@@ -51,12 +51,6 @@ AddEventHandler('esx_status:onTick', function(data)
     end
 end)
 
-AddEventHandler('esx:pauseMenuActive', function(isActive)
-    SendNUIMessage({
-        type = 'pausemenutogglehud',
-        state = isActive
-    })
-end)
 
 
 RegisterNetEvent('esx:setJob')

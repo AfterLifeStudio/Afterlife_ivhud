@@ -45,8 +45,8 @@ Config.maxminimapzone = false
 
 -- you can increase them inorder to increase performance
 Config.speedometerspeed = 50 -- how many millisecond it will delay before updating the speedometer again
-Config.compassspeed = 10     -- how many millisecond it will delay before updating the compass again
-Config.mileage = true
+Config.compassspeed = 50     -- how many millisecond it will delay before updating the compass again
+Config.mileage = false
 
 ------- Settings Configuration
 --------DONT CHANGE ANYTHING IF YOU DONT KNOW WHAT YOU ARE DOING

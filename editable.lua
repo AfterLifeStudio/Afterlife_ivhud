@@ -182,9 +182,6 @@ StreamMinimap = function()
     SetRadarBigmapEnabled(false, false)
 
 
-    local minimap = RequestScaleformMovie('minimap')
-    BeginScaleformMovieMethod(minimap, 'HIDE_SATNAV')
-
     return true
 
 end

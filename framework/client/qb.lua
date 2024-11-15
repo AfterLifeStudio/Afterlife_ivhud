@@ -60,21 +60,6 @@ RegisterNetEvent('hud:client:UpdateStress', function(newStress)
     stress = newStress
 end)
 
-local _st = true
-CreateThread(function()
-    while true do
-        local state = IsPauseMenuActive()
-        if state == 1 then state = true end
-        if not (_st == state) then
-            _st = not _st
-            SendNUIMessage({
-                type = 'pausemenutogglehud',
-                state = state
-            })
-        end
-        Wait(1000)
-    end
-end)
 
 
 function UpdateStress()
