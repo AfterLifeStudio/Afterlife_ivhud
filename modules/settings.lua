@@ -27,16 +27,23 @@ LoadHud = function ()
 
     if data then
         local data = json.decode(data)
-        for k,v in pairs(data) do
-            GlobalSettings[k] = v
-            Config.settings[k].value = v
+        for k,v in pairs(Config.settings) do
+            local value
+            if v.show then 
+                value = data[k]
+            else
+                value = v.value
+            end
+        
+            GlobalSettings[k] = value
+            Config.settings[k].value = value
         end
     else
         SetResourceKvp('IVHud:Data', json.encode(defaultsettings))
         goto Repeat
     end
 
-    NuiMessage('settings',{visible = false,settings = GlobalSettings,configsettings = Config.settings})
+    NuiMessage('updatesettings',{settings = GlobalSettings,configsettings = Config.settings})
 
     local response = StreamMinimap()
     return response
@@ -49,9 +56,8 @@ end)
 
 
 RegisterNUICallback('exitsettings', function (data, cb)
-    for i = 1,#Config.settings do
-
-        Config.settings[i].value = GlobalSettings[Config.settings[i].name]
+    for k,v in pairs(Config.settings) do
+        Config.settings[k].value = GlobalSettings[Config.settings[k].name]
     end
 
     NuiMessage('visible', true)
@@ -72,14 +78,17 @@ end)
 RegisterNUICallback('settings', function (data, cb)
     Config.settings[data.option].value =  data.value
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
-    NuiMessage('settings',{visible = true,settings = GlobalSettings,configsettings = Config.settings})
+    NuiMessage('updatesettings',{settings = GlobalSettings,configsettings = Config.settings})
     cb{{}}
 end)
 
 
 
 RegisterNUICallback('settingsconfirm', function (data, cb)
+
+
     for _,data in pairs(Config.settings) do
+        print(data.name,data.value)
         GlobalSettings[data.name] = data.value
     end
 
@@ -91,7 +100,7 @@ RegisterNUICallback('settingsconfirm', function (data, cb)
     StreamMinimap()
     DisplayHud(GlobalSettings.showhud)
 
-    NuiMessage('settings',{visible = false,settings = GlobalSettings,configsettings = Config.settings})
+    NuiMessage('updatesettings',{settings = GlobalSettings,configsettings = Config.settings})
 
     cb{{}}
 end)
@@ -100,16 +109,20 @@ end)
 
 RegisterNUICallback('settingsreset', function (data, cb)
 
-    for i = 1,#defaultsettings do
-        GlobalSettings[defaultsettings[i].name] = defaultsettings[i].value
-        Config.settings[i].value = defaultsettings[i].value
+    for k,v in pairs(defaultsettings) do
+        GlobalSettings[k] = v
+        Config.settings[k].value = v
     end
 
     SetResourceKvp('IVHud:Data', json.encode(defaultsettings))
-    radarloop = false
+
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
     SetNuiFocus(false,false)
-    NuiMessage('settings',{visible = false,settings = GlobalSettings,configsettings = Config.settings})
+    radarloop = false
+    StreamMinimap()
+    DisplayHud(GlobalSettings.showhud)
+
+    NuiMessage('updatesettings',{settings = GlobalSettings,configsettings = Config.settings})
 
     cb{{}}
 end)
@@ -117,7 +130,7 @@ end)
 
 CreateThread(function()
     while true do
-        local sleep = 500
+        local sleep = 1000
         if radarloop or GlobalSettings.cinematicmode then
             sleep = 0
             HideHudAndRadarThisFrame()
@@ -144,3 +157,6 @@ lib.addKeybind({
     onPressed = Opensettingsmenu
 })
 
+RegisterCommand(Config.settingscommand, function ()
+    Opensettingsmenu()
+end)

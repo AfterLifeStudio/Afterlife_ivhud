@@ -7,6 +7,7 @@ currentaspectratio, _aspectratio, screenx, screeny, _screenx, _screeny = 0, 0, 0
 aspectratio = 0
 -- MINIMAP
 CreateThread(function()
+    DisplayRadar(false)
     while true do
         if PlayerLoaded then
             SetRadarZoom(1100)
@@ -188,6 +189,54 @@ end
 
 
 
+-- CreateThread(function()
+--     while true do
+--         local sleep = 1000
+--         if VehicleState.seatbelt then
+--             sleep = 0
+--             DisableControlAction(0, 75, true)
+--             DisableControlAction(27, 75, true)
+--         end
+--         Wait(sleep)
+--     end
+-- end)
+
+
+
+local doesseatbeltexist = function(vehicle)
+    local class = GetVehicleClass(vehicle)
+    if class ~= 8 and class ~= 13 and class ~= 14 then
+        return true
+    end
+    return false
+end
+
+local toggleseatbelt = function()
+    if cache.vehicle then
+        if doesseatbeltexist(cache.vehicle) then
+            VehicleState.seatbelt = not VehicleState.seatbelt
+            if VehicleState.seatbelt then
+                SetFlyThroughWindscreenParams(1000.0, 1000.0, 0.0, 0.0)
+            else
+                SetFlyThroughWindscreenParams(15.0, 20.0, 17.0, -500.0)
+            end
+        end
+    end
+end
+
+
+
+lib.addKeybind({
+    name = 'seatbelt',
+    description = 'Toggle vehicle seatbelt',
+    defaultKey = Config.seatbelt,
+    onPressed = function(self)
+        toggleseatbelt()
+    end,
+})
+
+
+
 
 
 
@@ -198,10 +247,14 @@ CreateThread(function()
         if PauseMenuActive and not Active then
             Active = true
             NuiMessage('visible', false)
-        elseif Active and PauseMenuActive then
+        elseif Active and not PauseMenuActive then
             Active = false
             NuiMessage('visible', true)
         end
         Wait(1000)
     end
 end)
+
+
+
+exports('DisplayHud', DisplayHud)

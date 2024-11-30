@@ -21,14 +21,14 @@ import mic from "../Assets/images/microphone-solid.png";
 
 const Minimap = () => {
   const [status, setStatus] = useState({
-    skull: true,
-    health: 50,
-    armour: 50,
-    oxygen: 50,
-    hunger: 50,
-    thirst: 50,
-    stress: 50,
-    voice: true,
+    skull: false,
+    health: 0,
+    armour: 0,
+    oxygen: 0,
+    hunger: 0,
+    thirst: 0,
+    stress: 0,
+    voice: false,
     voicemode: 1,
   });
 
@@ -57,15 +57,13 @@ const Minimap = () => {
 
   const settings = useSelector((state) => state.settings)
 
-
-
   return (
     <>
     <Fade in={settings.showminimap}>
       <div className="Minimap-container" style={settings.fliphud ? {left: '1.2vw'} : {right: '1.2vw'}} >
       <div style={{transform: `scale(${settings.minimapsize / 50})`}} className="Minimap">
         <img className="outline" src={outline} alt="" />
-        <Fade in={settings.skullonfoot ? status.skull : false}>
+        <Fade in={status.skull}>
           <img className="minimap-dead" src={minimapdead} alt="" />
         </Fade>
 
@@ -87,7 +85,7 @@ const Minimap = () => {
         {status.voice &&
         <div style={settings.fliphud ? {right: '0.95vw'} : {left: '0.95vw'}} className="circle"></div>
       }
-        <img style={settings.fliphud ? {right: '0vw'} : {left: '0vw'}} className="fa-microphone" src={mic} alt="" />
+        <img style={settings.fliphud ? {right: '-.1vw'} : {left: '0vw'}} className="fa-microphone" src={mic} alt="" />
  
 
       </div>

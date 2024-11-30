@@ -8,12 +8,11 @@ const Sliders = (data) => {
 
     const handleinput = (event) => {
         let value = event[1]
-        setinput(value)
         nuicallback("settings",{option: data.name,value: value})
     };
 
 
-  const [input, setinput] = useState(data.value);
+
 
 
   return (
@@ -21,10 +20,10 @@ const Sliders = (data) => {
       <div className='option'>
         <div>{data.title}</div>
         <div style={{width: '10vw'}} className='range-container'>
-        <div>{input}</div>
+        <div>{data.value}</div>
         <div className="slider">
         <img onClick={() => setinput(data.value)} className="fas" src={reseticon} alt="" />
-       <RangeSlider className="single-thumb"   id="slider"  value={[0,input]} onInput={handleinput}    defaultValue={[0, data.value]}    rangeSlideDisabled={true}     thumbsDisabled={[true, false]} />
+       <RangeSlider className="single-thumb"   id="slider"  value={[0,data.value]} onInput={handleinput}    defaultValue={[0, data.value]}    rangeSlideDisabled={true}     thumbsDisabled={[true, false]} />
        </div>
         </div>
       </div>

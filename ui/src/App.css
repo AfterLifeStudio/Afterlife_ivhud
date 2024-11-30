@@ -22,8 +22,8 @@ img{
   src: url(./assets/font/pricedown.otf);
 }
 
-/* 
-body {
+
+/* body {
   background-color: black;
   height: 100%;
 } */
@@ -212,7 +212,6 @@ body {
 
 .fa-microphone {
   position: absolute;
-  right: -.7vw;
   bottom: -.3vw;
   color: rgb(229, 229, 229);
   width: .7vw;
@@ -366,65 +365,25 @@ body {
 
 
 
-.gear-container {
+.vehiclegear-container {
   position: absolute;
-  width: 13vw;
-  height: 13vw;
+  width: 15vw;
+  height: 14vw;
   color: rgb(255, 255, 255);
   font-family: 'Oswald', sans-serif;
   font-size: .85vw;
 
 }
 
-.gear0 {
-  position: relative;
-  left: 2.5vw;
-  bottom: 4vw;
+.vehiclegear {
+  position: absolute;
+
   text-shadow: 0 0 5px black;
+  margin-top: -.9vw;
+  margin-left: -.25vw;
 }
 
 
-.gear1 {
-  position: relative;
-  left: 1vw;
-  bottom: 5.5vw;
-  text-shadow: 0 0 5px black;
-}
-
-.gear2 {
-  position: relative;
-  bottom: 7vw;
-  left: 2.5vw;
-  text-shadow: 0 0 5px black;
-}
-
-.gear3 {
-  position: relative;
-  bottom: 6.5vw;
-  text-shadow: 0 0 5px black;
-  left: 6.2vw;
-}
-
-.gear4 {
-  position: relative;
-  bottom: 3vw;
-  left: 10vw;
-  text-shadow: 0 0 5px black;
-}
-
-.gear5 {
-  position: relative;
-  left: 11.7vw;
-  top: 2.5vw;
-  text-shadow: 0 0 5px black;
-}
-
-.gear6 {
-  position: relative;
-  left: 10.5vw;
-  top: 8.2vw;
-  text-shadow: 0 0 5px black;
-}
 
 
 .speedometer-center {

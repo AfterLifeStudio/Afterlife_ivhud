@@ -19,17 +19,33 @@ const Settings = () => {
 
   const dispatch = useDispatch();
 
+  let optionscomponent = [];
 
   const handlesettings = (data) => {
+    dispatch(update(data.settings))
+    setCatagory("general")
+    setSettingsData([])
+    setSettingsData(data.configsettings)
     setVisible(data.visible);
+  };
+
+  const handleupdatesettings = (data) => {
     dispatch(update(data.settings))
     setSettingsData(data.configsettings)
-  };
+  }
 
   NuiEvent("settings", handlesettings);
 
+  NuiEvent("updatesettings", handleupdatesettings);
+  
   const handlehover = (value) => {
     setDescription(value)
+  }
+
+
+  const handlekey = (action) => {
+      nuicallback(action, SettingsData);
+      setVisible(false);
   }
 
 
@@ -38,18 +54,14 @@ const Settings = () => {
     const handlekey = (e) => {
       if (visible) {
         if (e.code == "Escape") {
-          setVisible(false);
-          setSettingsData([]); 
-          setCatagory("general")
           nuicallback("exitsettings", SettingsData);
+          setVisible(false);
         } else if (e.code == "Enter") {
-          setSettingsData([]); 
-          setCatagory("general")
-          nuicallback("settingsconfirm")
+          nuicallback("settingsconfirm");
+          setVisible(false);
         } else if (e.code == "Backspace") {
-          setSettingsData([]); 
-          setCatagory("general")
-          nuicallback("settingsreset")
+          nuicallback("settingsreset");
+          setVisible(false);
         }
       }
     };
@@ -58,7 +70,8 @@ const Settings = () => {
     return () => window.removeEventListener("keydown", handlekey);
   });
 
-  let optionscomponent = [];
+
+
   
   for (var i in SettingsData) {
     let data = SettingsData[i];
@@ -134,15 +147,15 @@ const Settings = () => {
 
             <div className="settings-keys-container">
             <div className="settings-keys">
-            <div className="key">
+            <div onClick={() => handlekey('settingsconfirm')} className="key">
                 <div className="button">ENTER</div>
                 <div className="action">APPLY</div>
               </div>
-              <div className="key">
+              <div onClick={() => handlekey('settingsreset')} className="key">
                 <div className="button">BACKSPACE</div>
                 <div className="action">RESET</div>
               </div>
-              <div className="key">
+              <div onClick={() => handlekey('exitsettings')} className="key">
                 <div className="button">ESC</div>
                 <div className="action">EXIT</div>
               </div>

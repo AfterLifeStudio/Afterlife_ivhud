@@ -4,12 +4,10 @@ import { nuicallback } from "../../utils/nuicallback";
 const Button = (data) => {
 
 
-  const [input, setinput] = useState(data.value);
 
-  const handleinput = (option) => {
-    let value = !input
-    setinput(value)
-    nuicallback("settings",{option: option,value: value})
+
+  const handleinput = (state,option) => {
+    nuicallback("settings",{option: option,value: state})
   };
 
   return (
@@ -17,9 +15,9 @@ const Button = (data) => {
       <div className='option'>
         <div>{data.title}</div>
         <div className='select-value'>
-          <div className="option-button-text" style={{opacity: input ? '100%' : '70%'}}>{input ? 'on' : 'off'}</div>
-          <div style={{justifyContent: input ? 'end' : 'start'}} onClick={() => handleinput(data.name)} className='option-button'>
-            <div style={{opacity: input ? '100%' : '50%'}}></div>
+          <div className="option-button-text" style={{opacity: data.value ? '100%' : '70%'}}>{data.value ? 'on' : 'off'}</div>
+          <div style={{justifyContent: data.value ? 'end' : 'start'}} onClick={() => handleinput(data.value ? false : true,data.name)} className='option-button'>
+            <div style={{opacity: data.value ? '100%' : '50%'}}></div>
           </div>
         </div>
       </div>

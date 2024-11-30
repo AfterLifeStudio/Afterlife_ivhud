@@ -67,7 +67,7 @@ const Speedometer = () => {
   
 
 
-  const gears = [6, 5, 4, 3, 2, 1, 0];
+  const gears = [0,1,2,3,4,5,6];
 
   const visible = settings.showspeedometer ? vehiclevisible : false;
 
@@ -126,16 +126,20 @@ const Speedometer = () => {
           {vehicle.class != 13 && (
             <>
               {vehicle.class != 16 && (
-                <div className="gear-container">
-                  {gears.map((gears) => (
-                    <p
+                <div className="vehiclegear-container">
+                   
+                  {gears.map((gears,index) => (
+          
+                    <div
                       style={{
                         color: gears <= vehicle.gear ? "#88cfcd" : "white",
+                        top: (50 + 35 * Math.sin(-0.0 * Math.PI - 2 * (1 / 8) * (index - 1) * Math.PI)).toFixed(4) + "%",
+                        left:  (50 - 35 * Math.cos(-0.0 * Math.PI - 2 * (1 / 8) * (index - 1) * Math.PI)).toFixed(4) + "%",
                       }}
-                      className={`gear` + gears}
+                      className="vehiclegear"
                     >
                       {gears}
-                    </p>
+                    </div>
                   ))}
                 </div>
               )}

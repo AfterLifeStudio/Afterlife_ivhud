@@ -40,9 +40,12 @@ CreateThread(function()
         end
 
         voice = NetworkIsPlayerTalking(cache.playerId)
+
+        local showskull = cache.vehicle == false and true or false
+
         local data = {
             health = health - 100,
-            skull = cache.vehicle and false or true,
+            skull =  showskull and GlobalSettings.skullonfoot or false,
             armour = armour,
             oxygen = oxygen,
             hunger = hunger,
@@ -51,7 +54,7 @@ CreateThread(function()
             voice = voice,
         }
         NuiMessage('status', data)
-        Wait(1200)
+        Wait(800)
     end
 end)
 

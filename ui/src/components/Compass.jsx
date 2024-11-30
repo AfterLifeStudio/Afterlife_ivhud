@@ -28,6 +28,7 @@ const handlevisible = (state) =>{
 }
 
 const handlecompass = (data) => {
+  SetCompassVisible(true)
   setCompass(data);
 };
 

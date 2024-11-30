@@ -10,6 +10,11 @@ const Info = () => {
     bank: 2000,
     cash: 140,
     job: "Police - Officer",
+    show: {
+      bank: true,
+      cash: true,
+      job: true,
+    }
   });
 
   const settings = useSelector((state) => state.settings);
@@ -19,9 +24,6 @@ const Info = () => {
   };
   NuiEvent("info", handleinfo);
 
-  const bank = (data) => {
-
-  }
 
   const formatValue = (value) => value.toFixed(0);
   
@@ -31,17 +33,27 @@ const Info = () => {
       <Fade in={settings.showinfo}>
         <div class="info-wrapper">
           <div class="info-container">
+
+            <Fade in={settings.dynamicinfo ? info.show.bank : true}>
             <div class="bank">
               <span>$</span>
               <AnimatedNumber formatValue={formatValue} value={info.bank}/>
             </div>
+            </Fade>
+
+            <Fade in={settings.dynamicinfo ? info.show.cash : true}>
             <div class="cash">
               <span>$</span>
               <AnimatedNumber formatValue={formatValue} value={info.cash}/>
             </div>
+            </Fade>
+
+            <Fade in={settings.dynamicinfo ? info.show.job : true}>
             <div class="job">
               <span id="job">{info.job}</span>
             </div>
+            </Fade>
+
           </div>
         </div>
       </Fade>

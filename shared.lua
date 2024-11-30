@@ -36,6 +36,8 @@ end
 
 Config.framework = GetFramework() -- qb / esx /qbox /ox
 
+------- Info
+Config.infocommmands = true -- /job /cash /bank command 
 
 ------- Minimap
 
@@ -49,6 +51,8 @@ Config.compassspeed = 50     -- how many millisecond it will delay before updati
 Config.mileage = false
 
 ------- Settings Configuration
+Config.settingscommand = 'hud' 
+
 --------DONT CHANGE ANYTHING IF YOU DONT KNOW WHAT YOU ARE DOING
 Config.settings = {
     ['showhud'] = {
@@ -183,6 +187,15 @@ Config.settings = {
         name = 'showinfo',
         label = 'Toggle Info',
         description = "This options is for you to decide if you want to enable or disable the player info like Cash Bank and Job",
+        show = true,
+        value = true,
+        type = 'button',
+        category = 'general'
+    },
+    ['dynamicinfo'] = {
+        name = 'dynamicinfo',
+        label = 'Toggle Dynamic Info',
+        description = "This options is for you to decide if you want to enable or disable the player info like Cash Bank and Job only when they get updated",
         show = true,
         value = true,
         type = 'button',
