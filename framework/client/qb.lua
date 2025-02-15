@@ -10,6 +10,10 @@ RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
     job = playerdata.job.label
     grade = playerdata.job.grade.name
 
+    hunger = playerdata.metadata['hunger']
+    thirst = playerdata.metadata['thirst']
+    stress = playerdata.metadata['stress']
+
     local response = LoadHud()
     if response then
         DisplayHud(GlobalSettings.showhud)
@@ -26,6 +30,10 @@ AddEventHandler('onResourceStart', function(resourceName)
         previousbank = playerdata.money['bank']
         cash = playerdata.money['cash']
         bank = playerdata.money['bank']
+
+        hunger = playerdata.metadata['hunger']
+        thirst = playerdata.metadata['thirst']
+        stress = playerdata.metadata['stress']
 
         local response = LoadHud()
         if response then
@@ -52,6 +60,7 @@ end)
 
 
 RegisterNetEvent('hud:client:UpdateNeeds', function(newHunger, newThirst)
+    print('hunger '..newHunger,'thirst '..newThirst)
     hunger = newHunger
     thirst = newThirst
 end)

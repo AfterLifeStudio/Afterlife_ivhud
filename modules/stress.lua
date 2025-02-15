@@ -4,7 +4,7 @@
 
 local function IsVehicleBlacklisted(vehicle)
     local model = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))
-    for i = 1,#Config.BlacklistVehicle do
+    for i = 1, #Config.BlacklistVehicle do
         if string.upper(Config.BlacklistVehicle[i]) == model then
             return true
         end
@@ -14,14 +14,12 @@ end
 
 CreateThread(function() -- Speeding
     while true do
-        if PlayerLoaded then
-            if cache.vehicle and (not Config.disablestressjobs[playerjob]) then
-                if not IsVehicleBlacklisted(vehicle) then
-                    local speed = GetEntitySpeed(vehicle) * 3
-                    local stressSpeed = VehicleState.seatbelt and Config.MinimumSpeed or Config.MinimumSpeedUnbuckled
-                    if speed >= stressSpeed then
-                        UpdateStress()
-                    end
+        if cache.vehicle and (not Config.disablestressjobs[playerjob]) then
+            if not IsVehicleBlacklisted(vehicle) then
+                local speed = GetEntitySpeed(vehicle) * 3
+                local stressSpeed = VehicleState.seatbelt and Config.MinimumSpeed or Config.MinimumSpeedUnbuckled
+                if speed >= stressSpeed then
+                    UpdateStress()
                 end
             end
         end

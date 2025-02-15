@@ -2,12 +2,16 @@ if not (Config.framework == 'esx') then return end
 
 local ESX = exports['es_extended']:getSharedObject()
 
-RegisterNetEvent('esx:PlayerLoaded')
-AddEventHandler('esx:PlayerLoaded', function(playerData)
-    previouscash, previousbank = UpdateAccounts(playerData.accounts)
-    cash, bank = UpdateAccounts(playerData.accounts)
-    job = playerData.job.name
-    grade = playerData.job.grade_label
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded',function(xPlayer, isNew, skin)
+    ESX.PlayerData = xPlayer
+
+    
+    previouscash, previousbank = UpdateAccounts(xPlayer.accounts)
+    cash, bank = UpdateAccounts(xPlayer.accounts)
+    job = xPlayer.job.name
+    grade = xPlayer.job.grade_label
 
 
     local response = LoadHud()
@@ -16,6 +20,7 @@ AddEventHandler('esx:PlayerLoaded', function(playerData)
         PlayerLoaded = true
     end
 end)
+
 
 AddEventHandler('onResourceStart', function(resourceName)
     Wait(1000)

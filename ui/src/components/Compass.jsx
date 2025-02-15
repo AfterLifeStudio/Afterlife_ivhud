@@ -6,7 +6,7 @@ import Fade from "../utils/fade";
 const Compass = () => {
   const [compassvisible,SetCompassVisible] = useState(false)
   const [compass, setCompass] = useState({
-    heading: 0,
+    heading: 180,
     location1: 'Los Santos',
     location2: 'Legion Square'
   });
@@ -45,6 +45,97 @@ NuiEvent("compassvisible", handlevisible);
   <div style={{transform: `translate(-50%,0%) scale(${settings.compassize / 50})`}} className="compass-container">
     <div id="compass" className="compass">
 
+
+    <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">140</div>
+      </div>
+
+
+    <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">150</div>
+      </div>
+
+      <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">160</div>
+      </div>
+
+
+      <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">170</div>
+      </div>
+
+      <div className="compassvalues">
+      <div className="compassdir">S</div>
+      </div>
+
+
+      <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">190</div>
+      </div>
+
+      <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">200</div>
+      </div>
+
+      <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">210</div>
+      </div>
+
+
+
+      <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">220</div>
+      </div>
+
+      <div className="compassvalues">
+      <div className="compassdir">SW</div>
+      </div>
+
+
+
+
+
+
+
+      <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">230</div>
+      </div>
+
+    <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">240</div>
+      </div>
+
+      <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">250</div>
+      </div>
+
+      <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">260</div>
+      </div>
+
+
+      <div className="compassvalues">
+      <div className="compassdir">W</div>
+      </div>
+
+
+      <div className="compassvalues">
+      <div className="compassbar"></div>
+      <div className="compasstext">280</div>
+      </div>
+
       <div className="compassvalues">
       <div className="compassbar"></div>
       <div className="compasstext">290</div>
@@ -66,8 +157,7 @@ NuiEvent("compassvisible", handlevisible);
       <div className="compassdir">NW</div>
       </div>
 
-
-    <div className="compassvalues">
+      <div className="compassvalues">
       <div className="compassbar"></div>
       <div className="compasstext">320</div>
       </div>
@@ -89,7 +179,6 @@ NuiEvent("compassvisible", handlevisible);
       <div className="compasstext">350</div>
       </div>
       
-
       <div className="compassvalues">
       <div className="compassdir">N</div>
       </div>
@@ -218,6 +307,8 @@ NuiEvent("compassvisible", handlevisible);
       <div className="compasstext">210</div>
       </div>
 
+
+
       <div className="compassvalues">
       <div className="compassbar"></div>
       <div className="compasstext">220</div>
@@ -227,85 +318,6 @@ NuiEvent("compassvisible", handlevisible);
       <div className="compassdir">SW</div>
       </div>
 
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">230</div>
-      </div>
-
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">240</div>
-      </div>
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">250</div>
-      </div>
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">260</div>
-      </div>
-
-
-      <div className="compassvalues">
-      <div className="compassdir">W</div>
-      </div>
-
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">280</div>
-      </div>
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">290</div>
-      </div>
-
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">300</div>
-      </div>
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">310</div>
-      </div>
-
-
-      <div className="compassvalues">
-      <div className="compassdir">NW</div>
-      </div>
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">320</div>
-      </div>
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">330</div>
-      </div>
-
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">340</div>
-      </div>
-
-
-      <div className="compassvalues">
-      <div className="compassbar"></div>
-      <div className="compasstext">350</div>
-      </div>
-      
-      <div className="compassvalues">
-      <div className="compassdir">N</div>
-      </div>
-      
     </div>
     <Fade in={settings.showstreet}>
     <div className="location-container">
