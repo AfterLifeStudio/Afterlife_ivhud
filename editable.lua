@@ -225,6 +225,32 @@ local toggleseatbelt = function()
 end
 
 
+local TextUI = function (data)
+    NuiMessage('textui', data)
+end
+
+exports('TextUI', TextUI)
+
+local Notify =  function (data)
+    NuiMessage('notification', data)
+end
+
+exports('Notify', Notify)
+
+
+exports('DisplayHud', DisplayHud)
+
+-- RegisterCommand('test', function ()
+-- local data = {
+--         title = "Sprunk Soda",
+--         icon = 'local_drink',
+--         duration = 2000,
+--         description = "you have drank too many sprunk soda drank too many sprunk soda many",
+--     }
+
+--     Notify(data)
+-- end)
+
 
 lib.addKeybind({
     name = 'seatbelt',
@@ -239,6 +265,10 @@ lib.addKeybind({
 
 
 
+local prevloc1, prevloc2 = '', ''
+location1, location2 = '', ''
+
+
 
 CreateThread(function()
     while true do
@@ -251,10 +281,42 @@ CreateThread(function()
             Active = false
             NuiMessage('visible', true)
         end
+
+
+
+        if cache.vehicle then
+            local ped = cache.ped
+            local coords = GetEntityCoords(ped)
+            local street1, street2 = GetStreetNameAtCoord(coords.x, coords.y, coords.z)
+            location2 = GetStreetNameFromHashKey(street2)
+            location1 = GetStreetNameFromHashKey(street1)
+
+            if location1 == '' then
+                location1 = prevloc1
+            else
+                prevloc1 = location1
+            end
+
+
+            if location2 == '' then
+                location2 = prevloc2
+            else
+                prevloc2 = location2
+            end
+        end
+
+
         Wait(1000)
     end
 end)
 
 
 
-exports('DisplayHud', DisplayHud)
+
+
+
+
+
+
+
+

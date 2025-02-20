@@ -57,35 +57,6 @@ if Config.mileage then
     end)
 end
 
-local prevloc1, prevloc2 = '', ''
-local location1, location2 = '', ''
-
-CreateThread(function()
-    while true do
-        if vehicle then
-            local ped = cache.ped
-            local coords = GetEntityCoords(ped)
-            local street1, street2 = GetStreetNameAtCoord(coords.x, coords.y, coords.z)
-            location2 = GetStreetNameFromHashKey(street2)
-            location1 = GetStreetNameFromHashKey(street1)
-
-            if location1 == '' then
-                location1 = prevloc1
-            else
-                prevloc1 = location1
-            end
-
-
-            if location2 == '' then
-                location2 = prevloc2
-            else
-                prevloc2 = location2
-            end
-        end
-        Wait(1000)
-    end
-end)
-
 CreateThread(function()
     while true do
         local sleep = 1000

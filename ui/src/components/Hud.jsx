@@ -7,8 +7,10 @@ import Settings from "./settings/settings";
 import { NuiEvent } from "../hooks/NuiEvent";
 import { useSelector } from "react-redux";
 import Info from "./Info";
+import Notifications from "./notification";
+import TextUI from "./textui";
 const Hud = () => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   const settings = useSelector((state) => state.settings)
   const handlevisible = (data) => {
@@ -32,10 +34,13 @@ const Hud = () => {
             <Speedometer />
             <Minimap />
             <Compass />
+            <Notifications />
+            <TextUI />
           </>
         )}
       </Fade>
       <Settings />
+
     </>
   );
 };

@@ -15,8 +15,8 @@ end
 CreateThread(function() -- Speeding
     while true do
         if cache.vehicle and (not Config.disablestressjobs[playerjob]) then
-            if not IsVehicleBlacklisted(vehicle) then
-                local speed = GetEntitySpeed(vehicle) * 3
+            if not IsVehicleBlacklisted(cache.vehicle) then
+                local speed = GetEntitySpeed(cache.vehicle) * 3
                 local stressSpeed = VehicleState.seatbelt and Config.MinimumSpeed or Config.MinimumSpeedUnbuckled
                 if speed >= stressSpeed then
                     UpdateStress()
